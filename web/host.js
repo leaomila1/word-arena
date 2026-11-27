@@ -4,18 +4,20 @@ import { renderTimer } from './core/timer.js';
 import { h, $, show, CONTEXTS, ERRORS, CLOSED } from './core/dom.js';
 import { mountSky, confetti, FLAGS } from './core/scene.js';
 import { sfx, unlockAudio, startMusic, stopMusic, muteButton } from './core/sfx.js';
-import { countdown, tension, calm, banner, drumroll } from './core/fx.js';
+import { countdown, tension, calm, banner, drumroll, pauseOverlay } from './core/fx.js';
 import { hintChip } from './games/shared.js';
 const ROUND_MS = 180_000;
 
 const code = new URLSearchParams(location.search).get('code');
-const hostToken = sessionStorage.getItem(`host:${code}`);
+let hostToken = null;
+try { hostToken = localStorage.getItem(`host:${code}`) ?? sessionStorage.getItem(`host:${code}`); } catch {}
 if (!code || !hostToken) location.replace('index.html');
 else init();
 
 function init() {
   const NAMES = { contexto: 'Guess the Word', davini: 'Davini' };
   const GAME_INFO = { contexto: ['🔮', 'Guess the Word', 'Find the secret word by meaning'], davini: ['🗝️', 'Davini', 'Read the emoji — first answer wins'] };
+  GAME_INFO.contexto[2] = 'Find the secret word by meaning — first to find it wins';
   mountSky();
   document.body.append(muteButton());
   document.addEventListener('mutechange', e => { if (!e.detail && !$('[data-view=lobby]').hidden) startMusic(); });
@@ -37,12 +39,38 @@ function init() {
   const net = connect(code, () => ({ type: 'host', hostToken }));
   let game = null, stopTimer = null, seq = 0, lastCount = 0;
   const names = new Map();
+  let roster = [], paused = false, endsAt = 0;
   const ctx = { nameOf: id => names.get(id) ?? '?' };
   const flash = text => { const m = $('#msg'); m.textContent = text; m.hidden = false; setTimeout(() => (m.hidden = true), 3500); };
-  const goLobby = () => { calm(); show('lobby'); startMusic(); };
+  const goLobby = () => { calm(); pauseOverlay(false); show('lobby'); startMusic(); };
 
   net.on('_status', s => ($('#status').hidden = s === 'online'));
-  net.on('error', m => flash(ERRORS[m.code] || m.code));
+  net.on('error', m => {
+    if (m.code === 'BAD_HOST') { try { localStorage.removeItem(`host:${code}`); } catch {} }
+    flash(ERRORS[m.code] || m.code);
+  });
+  const runTimer = () => { stopTimer?.(); stopTimer = renderTimer($('#timer'), endsAt, { onTick: s => { tension(s, { heartbeat: true }); s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)); } }); };
+  const setPaused = on => {
+    paused = on; $('#pause').textContent = on ? '▶ Continue' : '⏸ Pause';
+    pauseOverlay(on);
+    if (on) { stopTimer?.(); stopTimer = null; } else runTimer();
+  };
+  net.on('paused', () => setPaused(true));
+  net.on('resumed', m => { endsAt = m.endsAt; sfx.start(); setPaused(false); });
+  $('#pause').onclick = () => net.send({ type: paused ? 'resume' : 'pause' });
+
+  // Full scoreboard (everyone in the room, highest first)
+  const MEDAL = ['🥇', '🥈', '🥉'];
+  const showScores = () => {
+    const list = [...roster].sort((a, b) => b.score - a.score);
+    const box = h('div', { class: 'scoreboard', role: 'dialog', 'aria-label': 'Scoreboard', onclick: e => e.target === box && box.remove() },
+      h('div', { class: 'card' },
+        h('div', { class: 'row', style: 'justify-content:space-between' }, h('h2', { style: 'margin:0;font-size:44px' }, '🏆 Scoreboard'), h('button', { class: 'btn btn--ghost', onclick: () => box.remove() }, 'Close ✕')),
+        list.length ? h('ol', {}, list.map((p, i) => h('li', {}, h('span', {}, `${MEDAL[i] ?? `${i + 1}.`} ${p.name}`), h('span', {}, p.score))))
+          : h('p', { class: 'muted' }, 'No players yet.')));
+    document.body.append(box); sfx.fanfare();
+  };
+  document.querySelectorAll('.js-scores').forEach(b => (b.onclick = showScores));
   net.on('hosted', m => { if (m.phase === 'lobby') goLobby(); });
   net.on('lobby', m => {
     $('#count').textContent = m.players.length;
@@ -50,21 +78,23 @@ function init() {
     if (m.players.length > lastCount) sfx.pop();
     lastCount = m.players.length;
     for (const p of m.players) names.set(p.id, p.name);
+    roster = m.players;
     $('#players').replaceChildren(...m.players.map(p => h('span', { class: 'chip' }, p.name,
       h('button', { 'aria-label': `Remove ${p.name}`, title: 'Remove', onclick: () => confirm(`Remove ${p.name}?`) && net.send({ type: 'kick', playerId: p.id }) }, '✕'))));
   });
   net.on('round', async m => {
     const my = ++seq;
-    stopMusic(); calm();
+    stopMusic(); calm(); pauseOverlay(false); paused = false; $('#pause').textContent = '⏸ Pause'; endsAt = m.endsAt;
     $('#roundTitle').textContent = NAMES[m.gameId];
     game?.unmount(); game = null;
     const mod = await import(`./games/${m.gameId}/host.js`);
     if (my !== seq) return; // a newer message arrived while loading
     game = mod.mount($('#game-root'), net, m, ctx);
     show('round');
+    if (m.paused) { renderTimer($('#timer'), m.endsAt)(); return setPaused(true); }
     if (m.endsAt - Date.now() > ROUND_MS - 5000) await countdown(); // fresh round only, not after a reload
     if (my !== seq) return;
-    stopTimer?.(); stopTimer = renderTimer($('#timer'), m.endsAt, { onTick: s => { tension(s, { heartbeat: true }); s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)); } });
+    runTimer();
   });
   net.on('board', m => game?.update(m));
   net.on('hint', m => {
@@ -74,7 +104,7 @@ function init() {
   });
   net.on('reveal', async m => {
     const my = ++seq;
-    stopTimer?.();
+    stopTimer?.(); pauseOverlay(false); paused = false;
     const [mod] = await Promise.all([import(`./games/${m.gameId}/host.js`), drumroll(1.8)]);
     if (my !== seq) return;
     game?.unmount(); game = null;
@@ -82,7 +112,7 @@ function init() {
     $('#top').replaceChildren(...m.top.map(p => h('li', {}, `${p.name} — ${p.score}`)));
     show('reveal'); sfx.fanfare(); confetti();
   });
-  net.on('closed', m => { stopMusic(); calm(); $('#closedText').textContent = CLOSED[m.reason] || 'Room closed'; show('closed'); });
+  net.on('closed', m => { stopMusic(); calm(); pauseOverlay(false); try { localStorage.removeItem(`host:${code}`); } catch {} $('#closedText').textContent = CLOSED[m.reason] || 'Room closed'; show('closed'); });
 
   const start = () => { unlockAudio(); net.send({ type: 'start', gameId: picked('game'), context: picked('context') }); };
   $('#start').onclick = start;

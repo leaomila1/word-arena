@@ -33,7 +33,7 @@ export function mount(root, net, m) {
     update(r) {
       if (r.error) {
         msg.className = 'msg msg--err';
-        msg.textContent = r.error === 'SLOW_DOWN' ? 'Wait a moment before trying again…' : r.error === 'WRONG' ? 'Not quite. Try again!' : '';
+        msg.textContent = r.error === 'SLOW_DOWN' ? 'Wait a moment before trying again…' : r.error === 'WRONG' ? 'Not quite. Try again!' : r.error === 'PAUSED' ? '⏸ Paused — wait for your teacher.' : '';
         form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); sfx.wrong(); vibrate(80); return;
       }
       if (r.stage === 'solved') { form.hidden = true; puzzle.replaceChildren(h('h2', { style: 'font-size:42px;margin:0' }, '🏆 You got it first!')); sfx.correct(); confetti(); vibrate([100, 60, 200]); }

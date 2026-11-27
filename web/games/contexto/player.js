@@ -4,7 +4,7 @@ import { vibrate } from '../../core/fx.js';
 import { sfx, guessSound } from '../../core/sfx.js';
 import { confetti } from '../../core/scene.js';
 
-const ERR = { NOT_IN_LIST: w => `“${w}” is not in our word list. Try another word.`, SLOW_DOWN: () => 'Slow down a little…', ALREADY_SOLVED: () => 'You already found it! 🎉' };
+const ERR = { NOT_IN_LIST: w => `“${w}” is not in our word list. Try another word.`, SLOW_DOWN: () => 'Slow down a little…', ALREADY_SOLVED: () => 'You already found it! 🎉', PAUSED: () => '⏸ Paused — wait for your teacher.' };
 
 export function mount(root, net, m) {
   const guesses = new Map(m.view.guesses.map(g => [g.word, g]));
@@ -15,11 +15,11 @@ export function mount(root, net, m) {
   const list = h('div', { class: 'stack', style: 'max-height:52vh;overflow:auto' });
   const hints = h('div', { class: 'hints', 'aria-live': 'polite' });
   const form = h('form', { class: 'card stack' },
-    h('p', { style: 'margin:0;font-weight:600' }, '🔮 Guess the secret word. Closer meaning = smaller number!'), hints,
+    h('p', { style: 'margin:0;font-weight:600' }, '🔮 Guess the secret word. Closer meaning = smaller number. First to find it wins!'), hints,
     h('div', { class: 'row', style: 'flex-wrap:nowrap' }, input, btn), msg, latest);
   const row = g => h('div', { class: `band band--${g.color}` }, h('span', {}, g.word), h('span', {}, `${rankText(g.rank)} · ${g.label}`));
   const draw = () => list.replaceChildren(...[...guesses.values()].sort((a, b) => a.rank - b.rank).map(row));
-  const solvedView = () => { input.disabled = true; btn.disabled = true; msg.className = 'msg'; msg.textContent = '🏝️ You found it! Wait for the round to end.'; };
+  const solvedView = () => { input.disabled = true; btn.disabled = true; msg.className = 'msg'; msg.textContent = '🏆 You found it first!'; };
   form.onsubmit = e => {
     e.preventDefault();
     const t = input.value.trim(); if (!t) return;

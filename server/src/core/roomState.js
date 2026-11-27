@@ -41,10 +41,25 @@ export function startRound(state, gameId, roundState, nowMs) {
   state.gameId = gameId;
   state.round = roundState;
   state.endsAt = nowMs + ROUND_MS;
+  state.pausedAt = null;
   for (const p of Object.values(state.players)) p.spectator = false;
 }
 
-export const isExpired = (state, nowMs) => state.phase === 'round' && nowMs >= state.endsAt;
+export const isExpired = (state, nowMs) => state.phase === 'round' && !state.pausedAt && nowMs >= state.endsAt;
+
+// Pause freezes the clock; resume pushes endsAt and the round's start forward by the pause length,
+// so time limits, hints and speed scores all ignore the pause.
+export function pauseRound(state, nowMs) {
+  if (state.phase !== 'round' || state.pausedAt) return false;
+  state.pausedAt = nowMs; return true;
+}
+export function resumeRound(state, nowMs) {
+  if (state.phase !== 'round' || !state.pausedAt) return false;
+  const d = nowMs - state.pausedAt;
+  state.endsAt += d;
+  if (state.round && typeof state.round.startedAt === 'number') state.round.startedAt += d;
+  state.pausedAt = null; return true;
+}
 
 export function endRound(state, scores) {
   for (const [id, pts] of Object.entries(scores)) {

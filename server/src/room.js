@@ -1,8 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
-import { createRoom, join, kick, startRound, isExpired, endRound, leaderboard } from './core/roomState.js';
+import { createRoom, join, kick, startRound, isExpired, endRound, leaderboard, pauseRound, resumeRound } from './core/roomState.js';
 import { games } from './games/index.js';
 
-const IDLE_MS = 30 * 60_000;
+const IDLE_MS = 2 * 60 * 60_000; // room (and its scores) kept 2 h after the last activity
 const TICK_MS = 1000; // board push + expiry check during a round
 const FLOOD_MAX = 20;  // messages per second per socket before we close it
 
@@ -26,7 +26,7 @@ export class Room extends DurableObject {
     const g = games[this.s.gameId], r = this.s.round;
     return g?.hints && r ? g.hints(r, r.hintShown ?? 0) : [];
   }
-  roundMsg() { return { type: 'round', gameId: this.s.gameId, endsAt: this.s.endsAt, hints: this.currentHints() }; }
+  roundMsg() { return { type: 'round', gameId: this.s.gameId, endsAt: this.s.endsAt, hints: this.currentHints(), paused: !!this.s.pausedAt }; }
 
   async fetch(request) {
     const url = new URL(request.url);
@@ -90,6 +90,7 @@ export class Room extends DurableObject {
         if (me.role !== 'player' || this.s.phase !== 'round') return;
         const p = this.s.players[me.playerId];
         if (!p || p.spectator) return;
+        if (this.s.pausedAt) return this.send(ws, { type: 'reply', error: 'PAUSED' });
         const { reply, endRound: ends } = games[this.s.gameId].onGuess(this.s.round, me.playerId, String(msg.text ?? '').slice(0, 40), now);
         this.send(ws, { type: 'reply', ...reply });
         this.dirty = true;
@@ -125,6 +126,18 @@ export class Room extends DurableObject {
         this.toHosts(this.lobbyMsg());
         return;
       }
+      case 'pause': {
+        if (!pauseRound(this.s, now)) return;
+        await this.save();
+        const m = { type: 'paused' }; this.toHosts(m); this.toPlayers(m);
+        return this.ctx.storage.setAlarm(now + IDLE_MS); // no ticking while paused
+      }
+      case 'resume': {
+        if (!resumeRound(this.s, now)) return;
+        await this.save();
+        const m = { type: 'resumed', endsAt: this.s.endsAt }; this.toHosts(m); this.toPlayers(m);
+        return this.ctx.storage.setAlarm(now + TICK_MS);
+      }
       case 'end': { if (this.s.phase === 'round') await this.finishRound(now); return; }
       case 'lobby': { if (this.s.phase !== 'round') { this.s.phase = 'lobby'; await this.save(); this.toHosts(this.lobbyMsg()); this.toPlayers({ type: 'lobby' }); } return; }
       case 'close': return this.closeRoom('CLOSED');
@@ -141,6 +154,7 @@ export class Room extends DurableObject {
     this.s.round = null;
     await this.save();
     this.toHosts(msg);
+    this.toHosts(this.lobbyMsg()); // full score table for the host's scoreboard
     for (const ws of this.sockets('player')) {
       const id = ws.deserializeAttachment().playerId;
       const p = this.s.players[id];
@@ -158,6 +172,10 @@ export class Room extends DurableObject {
   async alarm() {
     if (!this.s) return;
     const now = Date.now();
+    if (this.s.phase === 'round' && this.s.pausedAt) {
+      if (now - this.s.pausedAt >= IDLE_MS) return this.closeRoom('IDLE');
+      return this.ctx.storage.setAlarm(this.s.pausedAt + IDLE_MS);
+    }
     if (this.s.phase === 'round') {
       if (isExpired(this.s, now)) return this.finishRound(now);
       const g = games[this.s.gameId], r = this.s.round;

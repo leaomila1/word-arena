@@ -131,6 +131,18 @@ footer.attr { position: relative; font-size: 13px; color: var(--ink); text-align
 @media (max-width: 1300px) { .ctx-grid { grid-template-columns: 1fr 1fr; } .ctx-grid .race-card { grid-column: 1 / -1; } }
 .blanks { font: 700 48px var(--font-head); letter-spacing: .35em; color: var(--violet-dark); }
 
+/* ── Pause + scoreboard ── */
+.fx-pause { background: rgba(43,35,80,.55); pointer-events: auto; z-index: 70; }
+.fx-pause .card { padding: 32px 56px; align-items: center; display: flex; flex-direction: column; }
+.fx-pause b { font: 800 clamp(36px, 7vw, 90px)/1 var(--font-head); }
+.fx-pause small { font-size: clamp(16px, 2vw, 26px); color: #6B5E9A; }
+.fx-pause-icon { font-size: clamp(60px, 12vw, 150px); line-height: 1; }
+.scoreboard { position: fixed; inset: 0; z-index: 75; background: rgba(43,35,80,.6); display: grid; place-items: center; }
+.scoreboard .card { width: min(94vw, 1100px); max-height: 88vh; display: flex; flex-direction: column; gap: 14px; }
+.scoreboard ol { list-style: none; margin: 0; padding: 0; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
+.scoreboard li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 18px; border-radius: 16px; background: #F3EEFF; font: 700 26px var(--font-head); }
+.scoreboard li:nth-child(1) { background: #FFE8A3; } .scoreboard li:nth-child(2) { background: #E9EEF5; } .scoreboard li:nth-child(3) { background: #FFD9BF; }
+
 /* ── Suspense effects (core/fx.js) ── */
 .fx-overlay { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; pointer-events: none; }
 .fx-count { background: rgba(43,35,80,.55); pointer-events: auto; }

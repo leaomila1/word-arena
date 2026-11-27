@@ -18,7 +18,7 @@
     <div class="card stack">
       <div class="row" style="justify-content:space-between">
         <h2 style="margin:0"><span class="count-badge"><span id="count">0</span> / 200</span> players on board</h2>
-        <button id="start" class="btn btn--go btn--big">Start round ▶</button>
+        <span class="row"><button class="btn btn--ghost js-scores">🏆 Scoreboard</button><button id="start" class="btn btn--go btn--big">Start round ▶</button></span>
       </div>
       <fieldset class="tiles" id="gameTiles" style="border:0;padding:0;margin:0"><legend class="sr-only" hidden>Game</legend></fieldset>
       <fieldset class="tiles" id="cultureTiles" style="border:0;padding:0;margin:0"></fieldset>
@@ -27,13 +27,13 @@
     </div>
   </section>
   <section data-view="round" class="stack" hidden>
-    <div class="card topbar"><h2 id="roundTitle" style="margin:0;font-size:36px"></h2><div class="timer" id="timer"></div><button id="endNow" class="btn btn--ghost">End round</button></div>
+    <div class="card topbar"><h2 id="roundTitle" style="margin:0;font-size:36px"></h2><div class="timer" id="timer"></div><span class="row"><button id="pause" class="btn btn--sun">⏸ Pause</button><button id="endNow" class="btn btn--ghost">End round</button></span></div>
     <div id="game-root"></div>
   </section>
   <section data-view="reveal" class="stack" hidden>
     <div id="reveal-root"></div>
     <div class="card stack"><h2>Top 5</h2><ol id="top" class="podium"></ol>
-      <div class="row"><button id="again" class="btn btn--go">Next round ▶</button><button id="toLobby" class="btn btn--ghost">Change game</button><button id="close" class="btn btn--danger">Close room</button></div></div>
+      <div class="row"><button id="again" class="btn btn--go">Next round ▶</button><button class="btn btn--sun js-scores">🏆 Scoreboard</button><button id="toLobby" class="btn btn--ghost">Change game</button><button id="close" class="btn btn--danger">Close room</button></div></div>
   </section>
   <section data-view="closed" class="card stack center" hidden><h2 id="closedText">Room closed</h2><p><a class="btn btn--sun" href="index.html">Start again</a></p></section>
 </main>

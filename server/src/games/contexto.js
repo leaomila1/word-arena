@@ -51,13 +51,14 @@ export function createContexto({ vocabIndex, targets, getRanks, meta = {} }) {
       const rank = getRanks(byId.get(r.targetId).word)[idx];
       if (!p.guesses.some(g => g.word === word)) p.guesses.push({ word, rank });
       if (p.best == null || rank < p.best) p.best = rank;
-      if (rank === 1) p.solvedAt = nowMs;
+      if (rank === 1) { p.solvedAt = nowMs; r.winnerId ??= playerId; }
       // live feed for the big screen (answer masked)
       r.feed ??= []; r.closest ??= {}; r.seq = (r.seq ?? 0) + 1;
       r.feed.push({ seq: r.seq, id: playerId, word: rank === 1 ? HIDDEN : word, rank });
       if (r.feed.length > FEED_MAX) r.feed.splice(0, r.feed.length - FEED_MAX);
       if (rank !== 1) r.closest[word] = rank;
-      return { reply: { word, rank, color: colorFor(rank), label: labelFor(rank) } };
+      // first correct answer ends the round for everyone (same as Davini)
+      return { reply: { word, rank, color: colorFor(rank), label: labelFor(rank) }, endRound: rank === 1 || undefined };
     },
 
     // Hints unlock every 30 s: category+culture, emoji, first letter, clue, last letter.
@@ -98,7 +99,7 @@ export function createContexto({ vocabIndex, targets, getRanks, meta = {} }) {
         scores[id] = p.solvedAt != null ? scoreCorrect(Math.floor((p.solvedAt - r.startedAt) / 1000)) : scoreTimeout(p.best);
       }
       const t = byId.get(r.targetId);
-      return { scores, reveal: { answer: t.word, context: t.context, culture_note_en: t.culture_note_en, culture_note_th: t.culture_note_th } };
+      return { scores, reveal: { winnerId: r.winnerId ?? null, answer: t.word, context: t.context, culture_note_en: t.culture_note_en, culture_note_th: t.culture_note_th } };
     },
   };
 }

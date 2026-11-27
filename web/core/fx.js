@@ -45,6 +45,15 @@ export function banner(content, { tone = 'hint', ms = 3500, sound = 'whoosh' } =
   setTimeout(() => el.remove(), ms + 500);
 }
 
+// Freeze screen while the teacher pauses the round.
+export function pauseOverlay(on) {
+  document.querySelector('.fx-pause')?.remove();
+  if (!on) return;
+  calm();
+  const o = overlay('fx-pause');
+  o.append(h('div', { class: 'card stack center' }, h('span', { class: 'fx-pause-icon' }, '⏸'), h('b', {}, 'Paused'), h('small', {}, 'Wait for your teacher')));
+}
+
 // "And the answer is…" with a drumroll, then resolves so the caller can show the reveal.
 export async function drumroll(sec = 1.8) {
   calm();
