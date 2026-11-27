@@ -24,7 +24,7 @@ export function join(state, name, token) {
   if (players.some(p => nameKey(p.name) === nameKey(v.name)) || (state.kickedNames ?? []).includes(nameKey(v.name))) return { ok: false, code: 'NAME_TAKEN' };
 
   const playerId = newId(), tok = newId();
-  state.players[playerId] = { id: playerId, name: v.name, score: 0, spectator: state.phase === 'round' };
+  state.players[playerId] = { id: playerId, name: v.name, score: 0, spectator: false }; // late joiners play the current round straight away
   state.tokens[tok] = playerId;
   return { ok: true, playerId, token: tok };
 }

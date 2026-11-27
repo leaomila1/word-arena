@@ -1,5 +1,5 @@
 import { h } from '../../core/dom.js';
-import { rankText, renderHints } from '../shared.js';
+import { rankText, renderHints, mysteryBox } from '../shared.js';
 import { vibrate } from '../../core/fx.js';
 import { sfx, guessSound } from '../../core/sfx.js';
 import { confetti } from '../../core/scene.js';
@@ -27,17 +27,20 @@ export function mount(root, net, m) {
     else { msg.className = 'msg msg--err'; msg.textContent = 'Connection lost — your word is kept. Try again in a moment.'; }
     input.focus();
   };
-  root.replaceChildren(form, h('div', { class: 'card stack' }, h('h3', { style: 'margin:0' }, 'Your guesses'), list));
+  const box = mysteryBox(net, m.view.items);
+  root.replaceChildren(form, box.el, h('div', { class: 'card stack' }, h('h3', { style: 'margin:0' }, 'Your guesses'), list));
   draw(); if (m.view.solved) solvedView(); else input.focus();
   let hintSeen = renderHints(hints, m.hints, m.hints?.length ?? 0);
   return {
     hint(list) { hintSeen = renderHints(hints, list, hintSeen); },
+    item: r => box.got(r),
     update(r) {
       if (r.error) { msg.className = 'msg msg--err'; msg.textContent = (ERR[r.error] ?? (() => r.error))(r.word); form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); sfx.wrong(); vibrate(80); return; }
       msg.className = 'msg'; msg.textContent = '';
       guesses.set(r.word, r); draw();
       latest.replaceChildren(h('p', { class: 'muted', style: 'margin:0' }, 'Latest:'), row(r));
       guessSound(r.color);
+      if (r.boxes) { box.set(r.boxes); box.gotBox(); sfx.unlock(); }
       if (r.rank === 1) { solvedView(); confetti(); vibrate([100, 60, 200]); }
     },
     unmount() { root.replaceChildren(); },

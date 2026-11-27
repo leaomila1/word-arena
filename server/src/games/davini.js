@@ -1,6 +1,8 @@
 // Davini: look at 3 emoji + a short clue, type the word. The first correct answer ends the round.
 import { fold } from '../core/text.js';
 import { scoreCorrect } from './contexto.js';
+import { progress, open, itemsView, isDouble, pattern } from './items.js';
+export const BOX_EVERY = 3; // wrong answers per mystery box
 
 export const RATE_MS = 2000;
 export const HINT_MS = 30_000;
@@ -47,12 +49,25 @@ export function createDavini({ puzzles }) {
         r.winnerId = playerId; r.solvedAt = nowMs;
         return { reply: { stage: 'solved' }, endRound: true };
       }
-      return { reply: { error: 'WRONG' } };
+      return { reply: { error: 'WRONG', boxes: progress(r, playerId, BOX_EVERY) } };
     },
 
-    playerView(r) {
+    // Mystery box in Davini: an extra letter or double points.
+    openBox(r, playerId, rng, nowMs) {
+      const w = byId.get(r.puzzleId).answer, lvl = r.hintShown ?? this.hintLevel(r, nowMs);
+      return open(r, playerId, ['letter', 'double'], rng, (item, s) => {
+        if (item === 'double') return {};
+        const shown = new Set([...r.revealOrder.slice(0, lvl), ...s.letters]);
+        const free = r.revealOrder.filter(i => !shown.has(i));
+        if (free.length <= 1) return null;
+        s.letters.push(free[Math.floor(rng() * free.length)]);
+        return { text: pattern(w, [...shown, s.letters.at(-1)]) };
+      });
+    },
+
+    playerView(r, playerId) {
       const pz = byId.get(r.puzzleId);
-      return { emoji: pz.emoji, clue: pz.clue_text.toUpperCase(), letters: pz.answer.length };
+      return { emoji: pz.emoji, clue: pz.clue_text.toUpperCase(), letters: pz.answer.length, items: itemsView(r, playerId) };
     },
 
     publicView(r) {
@@ -62,7 +77,7 @@ export function createDavini({ puzzles }) {
 
     endRound(r) {
       const scores = Object.fromEntries(Object.keys(r.players).map(id => [id, 0]));
-      if (r.winnerId) scores[r.winnerId] = scoreCorrect(Math.floor((r.solvedAt - r.startedAt) / 1000));
+      if (r.winnerId) scores[r.winnerId] = scoreCorrect(Math.floor((r.solvedAt - r.startedAt) / 1000)) * (isDouble(r, r.winnerId) ? 2 : 1);
       const pz = byId.get(r.puzzleId);
       return { scores, reveal: { answer: pz.answer, clue: pz.clue_text.toUpperCase(), emoji: pz.emoji, context: pz.context, culture_note_en: pz.culture_note_en, culture_note_th: pz.culture_note_th, winnerId: r.winnerId } };
     },

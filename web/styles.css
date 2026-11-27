@@ -131,6 +131,28 @@ footer.attr { position: relative; font-size: 13px; color: var(--ink); text-align
 @media (max-width: 1300px) { .ctx-grid { grid-template-columns: 1fr 1fr; } .ctx-grid .race-card { grid-column: 1 / -1; } }
 .blanks { font: 700 48px var(--font-head); letter-spacing: .35em; color: var(--violet-dark); }
 
+/* ── Join strip, mystery box, scoreboard extras ── */
+.join-mini { display: flex; gap: 10px; align-items: center; padding: 6px 12px 6px 6px; border-radius: 16px; background: #fff; border: 3px solid #E4DCFF; }
+.qr-mini { width: 96px; height: 96px; } .qr-mini svg { width: 100%; height: 100%; display: block; }
+.join-mini small { display: block; font: 600 15px var(--font-body); color: #6B5E9A; }
+.join-mini b { font: 800 38px/1 var(--font-head); letter-spacing: 3px; }
+.gift { font: 800 24px var(--font-head); padding: 14px 20px; border-radius: 20px; border: 0; color: #fff; cursor: pointer;
+  background: linear-gradient(135deg, #FF8FC7, #8B5CF6); box-shadow: 0 6px 0 #6A3FD0; min-height: 56px; }
+.gift.bounce { animation: gift-bounce 1s cubic-bezier(.3,1.6,.5,1) 2; }
+@keyframes gift-bounce { 0% { transform: scale(.6) rotate(-8deg) } 50% { transform: scale(1.08) rotate(4deg) } 100% { transform: scale(1) } }
+.items { display: flex; flex-direction: column; gap: 8px; }
+.items:empty { display: none; }
+.item-card { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 10px 14px; border-radius: 16px; background: #F3EEFF; border: 3px solid #C9B8FF; font-weight: 600; }
+.item-card .item-icon { font: 800 26px var(--font-head); min-width: 44px; text-align: center; }
+.item-card.spin .item-icon { animation: fx-shake .12s linear infinite; }
+.item-card .mono { letter-spacing: 3px; }
+.band--item { background: #F3EEFF; border-color: #C9B8FF; color: #4B2BB0; }
+.fx-banner--item { background: #F3EEFF; border-color: #8B5CF6; box-shadow: 0 8px 0 #6A3FD0, 0 16px 40px rgba(0,0,0,.2); }
+.scoreboard li { animation: fx-drop-in .5s both; }
+.scoreboard .gain { font: 700 20px var(--font-head); color: #2E9A3E; }
+.scoreboard em { font-style: normal; font-size: 18px; margin-left: 6px; }
+.scoreboard em.up { color: #2E9A3E; } .scoreboard em.down { color: #D94A1E; }
+
 /* ── Pause + scoreboard ── */
 .fx-pause { background: rgba(43,35,80,.55); pointer-events: auto; z-index: 70; }
 .fx-pause .card { padding: 32px 56px; align-items: center; display: flex; flex-direction: column; }

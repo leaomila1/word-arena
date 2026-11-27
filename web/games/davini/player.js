@@ -1,5 +1,5 @@
 import { h } from '../../core/dom.js';
-import { emojiImg, letterSpans } from '../shared.js';
+import { emojiImg, letterSpans, mysteryBox, mergePatterns } from '../shared.js';
 import { vibrate } from '../../core/fx.js';
 import { sfx } from '../../core/sfx.js';
 import { confetti } from '../../core/scene.js';
@@ -25,16 +25,21 @@ export function mount(root, net, m) {
     h('p', { class: 'head', style: 'margin:0;font-size:22px' }, `Clue: ${v.clue}`),
     slots,
     h('p', { style: 'margin:0;font-weight:700;color:#9A5B00' }, '⚡ Be the first to answer!'));
-  root.replaceChildren(puzzle, form); input.focus();
-  const hint = list => { const l = list?.find(x => x.kind === 'letters'); if (l) slots.replaceChildren(...letterSpans(l.text)); };
+  let pub = null, mine = null;
+  const draw = () => { const t = mergePatterns(pub, mine); if (t) slots.replaceChildren(...letterSpans(t)); };
+  const box = mysteryBox(net, v.items, { onLetters: t => { mine = mergePatterns(mine, t); draw(); } });
+  for (const g of v.items?.got ?? []) if (g.item === 'letter') mine = mergePatterns(mine, g.text);
+  root.replaceChildren(puzzle, form, box.el); input.focus();
+  const hint = list => { const l = list?.find(x => x.kind === 'letters'); if (l) pub = l.text; draw(); };
   hint(m.hints);
   return {
     hint,
+    item: r => box.got(r),
     update(r) {
       if (r.error) {
         msg.className = 'msg msg--err';
         msg.textContent = r.error === 'SLOW_DOWN' ? 'Wait a moment before trying again…' : r.error === 'WRONG' ? 'Not quite. Try again!' : r.error === 'PAUSED' ? '⏸ Paused — wait for your teacher.' : '';
-        form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); sfx.wrong(); vibrate(80); return;
+        form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); sfx.wrong(); vibrate(80); if (r.boxes) { box.set(r.boxes); box.gotBox(); sfx.unlock(); } return;
       }
       if (r.stage === 'solved') { form.hidden = true; puzzle.replaceChildren(h('h2', { style: 'font-size:42px;margin:0' }, '🏆 You got it first!')); sfx.correct(); confetti(); vibrate([100, 60, 200]); }
     },

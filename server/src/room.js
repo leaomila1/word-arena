@@ -97,6 +97,15 @@ export class Room extends DurableObject {
         if (ends || isExpired(this.s, now)) await this.finishRound(now);
         return;
       }
+      case 'open': { // mystery box
+        if (me.role !== 'player' || this.s.phase !== 'round' || this.s.pausedAt) return;
+        const g = games[this.s.gameId];
+        if (!g.openBox || !this.s.players[me.playerId]) return;
+        const res = g.openBox(this.s.round, me.playerId, Math.random, now);
+        this.send(ws, { type: 'item', ...res });
+        if (res.item) { this.dirty = true; this.toHosts({ type: 'gotItem', playerId: me.playerId, name: this.s.players[me.playerId].name, item: res.item, icon: res.icon }); }
+        return;
+      }
     }
 
     if (me.role !== 'host') return;

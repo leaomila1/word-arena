@@ -61,7 +61,8 @@ function init() {
     net.on('reply', m => game?.update(m));
     net.on('paused', () => { stopTimer?.(); stopTimer = null; pauseOverlay(true); });
     net.on('resumed', m => { pauseOverlay(false); sfx.start(); runTimer(m.endsAt); });
-    net.on('hint', m => { game?.hint?.(m.hints); const last = m.hints.at(-1); if (last) banner(['💡 ', hintChip(last)], { sound: 'sparkle', ms: 2800 }); });
+    net.on('hint', m => { game?.hint?.(m.hints); const last = m.hints.at(-1); if (last) banner(['New hint! ', hintChip(last)], { sound: 'sparkle', ms: 2800 }); });
+    net.on('item', m => game?.item?.(m));
     net.on('reveal', async m => {
       const my = ++seq;
       stopTimer?.(); pauseOverlay(false);

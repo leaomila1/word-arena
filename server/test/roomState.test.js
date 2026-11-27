@@ -23,23 +23,14 @@ test('invalid_name_rejected', () => {
   assert.equal(join(s, '   ').code, 'NAME_INVALID');
 });
 
-test('late_join_is_spectator', () => {
+test('late_join_plays_current_round_and_scores', () => {
   const s = createRoom('123456', 'h');
   join(s, 'a');
   startRound(s, 'contexto', {}, 0);
   const r = join(s, 'late');
-  assert.equal(s.players[r.playerId].spectator, true);
-  endRound(s, { [r.playerId]: 999 });
-  startRound(s, 'contexto', {}, 1000);
   assert.equal(s.players[r.playerId].spectator, false);
-});
-
-test('spectator_gets_no_score', () => {
-  const s = createRoom('123456', 'h');
-  startRound(s, 'contexto', {}, 0);
-  const r = join(s, 'late');
-  endRound(s, { [r.playerId]: 999 });
-  assert.equal(s.players[r.playerId].score, 0);
+  endRound(s, { [r.playerId]: 300 });
+  assert.equal(s.players[r.playerId].score, 300);
 });
 
 test('reconnect_restores_player', () => {

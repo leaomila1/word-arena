@@ -28,6 +28,8 @@ function init() {
   $('#code').textContent = code;
   $('#joinUrl').textContent = new URL('.', location.href).host + new URL('.', location.href).pathname;
   $('#qr').innerHTML = qrSvg(joinUrl);
+  $('#qrMini').innerHTML = qrSvg(joinUrl);
+  $('#codeMini').textContent = code;
   const tile = (name, value, img, title, sub, checked) => h('label', { class: 'tile' },
     h('input', { type: 'radio', name, value, checked: checked ? '' : false }),
     h('span', {}, img, title, sub ? h('small', {}, sub) : null));
@@ -42,7 +44,7 @@ function init() {
   let roster = [], paused = false, endsAt = 0;
   const ctx = { nameOf: id => names.get(id) ?? '?' };
   const flash = text => { const m = $('#msg'); m.textContent = text; m.hidden = false; setTimeout(() => (m.hidden = true), 3500); };
-  const goLobby = () => { calm(); pauseOverlay(false); show('lobby'); startMusic(); };
+  const goLobby = () => { clearTimeout(autoScores); document.querySelector('.scoreboard')?.remove(); calm(); pauseOverlay(false); show('lobby'); startMusic(); };
 
   net.on('_status', s => ($('#status').hidden = s === 'online'));
   net.on('error', m => {
@@ -61,16 +63,25 @@ function init() {
 
   // Full scoreboard (everyone in the room, highest first)
   const MEDAL = ['🥇', '🥈', '🥉'];
-  const showScores = () => {
+  let before = new Map(), autoScores = null;
+  const snapshot = () => { before = new Map([...roster].sort((a, b) => b.score - a.score).map((p, i) => [p.id, { score: p.score, rank: i }])); };
+  const showScores = (opts = {}) => {
+    document.querySelector('.scoreboard')?.remove();
     const list = [...roster].sort((a, b) => b.score - a.score);
+    const extra = (p, i) => {
+      if (!opts.round) return null;
+      const b = before.get(p.id), gain = p.score - (b?.score ?? 0), move = b ? b.rank - i : 0;
+      return h('span', { class: 'gain' }, gain > 0 ? `+${gain}` : '', move > 0 ? h('em', { class: 'up' }, `▲${move}`) : move < 0 ? h('em', { class: 'down' }, `▼${-move}`) : b ? null : h('em', { class: 'up' }, 'NEW'));
+    };
     const box = h('div', { class: 'scoreboard', role: 'dialog', 'aria-label': 'Scoreboard', onclick: e => e.target === box && box.remove() },
       h('div', { class: 'card' },
         h('div', { class: 'row', style: 'justify-content:space-between' }, h('h2', { style: 'margin:0;font-size:44px' }, '🏆 Scoreboard'), h('button', { class: 'btn btn--ghost', onclick: () => box.remove() }, 'Close ✕')),
-        list.length ? h('ol', {}, list.map((p, i) => h('li', {}, h('span', {}, `${MEDAL[i] ?? `${i + 1}.`} ${p.name}`), h('span', {}, p.score))))
-          : h('p', { class: 'muted' }, 'No players yet.')));
+        list.length ? h('ol', {}, list.map((p, i) => h('li', { style: `animation-delay:${Math.min(i, 20) * 60}ms` }, h('span', {}, `${MEDAL[i] ?? `${i + 1}.`} ${p.name}`), h('span', { class: 'row', style: 'gap:10px' }, extra(p, i), h('b', {}, p.score)))))
+          : h('p', { class: 'muted' }, 'No players yet.'),
+        opts.round ? h('div', { class: 'row' }, h('button', { class: 'btn btn--go', onclick: () => { box.remove(); start(); } }, 'Next round ▶'), h('button', { class: 'btn btn--ghost', onclick: () => { box.remove(); $('#toLobby').click(); } }, 'Change game')) : null));
     document.body.append(box); sfx.fanfare();
   };
-  document.querySelectorAll('.js-scores').forEach(b => (b.onclick = showScores));
+  document.querySelectorAll('.js-scores').forEach(b => (b.onclick = () => showScores({ round: !$('[data-view=reveal]').hidden })));
   net.on('hosted', m => { if (m.phase === 'lobby') goLobby(); });
   net.on('lobby', m => {
     $('#count').textContent = m.players.length;
@@ -84,6 +95,8 @@ function init() {
   });
   net.on('round', async m => {
     const my = ++seq;
+    clearTimeout(autoScores); document.querySelector('.scoreboard')?.remove();
+    if (m.endsAt - Date.now() > ROUND_MS - 5000) snapshot();
     stopMusic(); calm(); pauseOverlay(false); paused = false; $('#pause').textContent = '⏸ Pause'; endsAt = m.endsAt;
     $('#roundTitle').textContent = NAMES[m.gameId];
     game?.unmount(); game = null;
@@ -97,10 +110,11 @@ function init() {
     runTimer(); startGameMusic({ fast: m.endsAt - Date.now() <= 30_000 });
   });
   net.on('board', m => game?.update(m));
+  net.on('gotItem', m => game?.onItem ? game.onItem(m) : banner(`🎁 ${m.name} got ${m.icon}!`, { tone: 'item', ms: 2200, sound: 'sparkle' }));
   net.on('hint', m => {
     game?.hint?.(m.hints);
     const last = m.hints.at(-1);
-    if (last) banner(['💡 New hint! ', hintChip(last)], { sound: 'sparkle' });
+    if (last) banner(['New hint! ', hintChip(last)], { sound: 'sparkle' });
   });
   net.on('reveal', async m => {
     const my = ++seq;
@@ -111,6 +125,7 @@ function init() {
     $('#reveal-root').replaceChildren(mod.renderReveal(m.reveal));
     $('#top').replaceChildren(...m.top.map(p => h('li', {}, `${p.name} — ${p.score}`)));
     show('reveal'); sfx.fanfare(); confetti();
+    clearTimeout(autoScores); autoScores = setTimeout(() => { if (!$('[data-view=reveal]').hidden) showScores({ round: true }); }, 8000);
   });
   net.on('closed', m => { stopMusic(); calm(); pauseOverlay(false); try { localStorage.removeItem(`host:${code}`); } catch {} $('#closedText').textContent = CLOSED[m.reason] || 'Room closed'; show('closed'); });
 
