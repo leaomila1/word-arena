@@ -17,7 +17,7 @@ function init() {
   $('#code').textContent = code;
   $('#waitIsland').innerHTML = islandSvg({ seed: 11, trees: 3 });
   const KEY = `player:${code}`;
-  const NAMES = { contexto: 'Guess the Word', davini: 'Davini' };
+  const NAMES = { contexto: 'Guess the Word', davini: 'Code Breaker' };
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || sessionStorage.getItem(KEY) || 'null'); } catch { return null; } };
   let saved = load(), net = null, game = null, stopTimer = null, seq = 0, typedName = '';
   const forget = () => { saved = null; try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); } catch {} };

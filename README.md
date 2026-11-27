@@ -3,7 +3,7 @@
 Live classroom vocabulary games (≤200 players, 3-minute rounds) about English, French, Russian, Korean and Chinese culture.
 
 - **Guess the Word** — Contexto-style: guess the secret word; every guess gets a meaning-closeness rank, and the big screen shows every guess live plus the closest words so far.
-- **Davini** — look at three emoji and a short clue, type the word; the first correct answer wins and ends the round.
+- **Code Breaker** (code id: `davini`) — look at three emoji and a short clue, type the word; the first correct answer wins and ends the round.
 
 Frontend: `web/` (GitHub Pages). Server: `server/` (Cloudflare Workers + Durable Objects, free plan). Content: `content/words.csv`.
 

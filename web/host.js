@@ -15,8 +15,8 @@ if (!code || !hostToken) location.replace('index.html');
 else init();
 
 function init() {
-  const NAMES = { contexto: 'Guess the Word', davini: 'Davini' };
-  const GAME_INFO = { contexto: ['🔮', 'Guess the Word', 'Find the secret word by meaning'], davini: ['🗝️', 'Davini', 'Read the emoji — first answer wins'] };
+  const NAMES = { contexto: 'Guess the Word', davini: 'Code Breaker' };
+  const GAME_INFO = { contexto: ['🔮', 'Guess the Word', 'Find the secret word by meaning'], davini: ['🗝️', 'Code Breaker', 'Read the emoji — first answer wins'] };
   GAME_INFO.contexto[2] = 'Find the secret word by meaning — first to find it wins';
   mountSky();
   document.body.append(muteButton());
