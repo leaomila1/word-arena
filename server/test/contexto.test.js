@@ -96,3 +96,28 @@ test('trailing punctuation from mobile keyboards is ignored', () => {
   const r = fresh();
   assert.equal(g.onGuess(r, 'p', 'Cat.', 0).reply.rank, 1);
 });
+
+test('publicView feed: every accepted guess with player id, word, rank, newest last', () => {
+  const r = fresh();
+  g.onGuess(r, 'a', 'dog', 0); g.onGuess(r, 'b', 'table', 0); g.onGuess(r, 'a', 'car', 2000);
+  const f = g.publicView(r).feed;
+  assert.deepEqual(f.map(x => [x.id, x.word, x.rank]), [['a', 'dog', 3], ['b', 'table', 400], ['a', 'car', 1600]]);
+  assert.ok(f.every(x => typeof x.seq === 'number'));
+});
+test('publicView feed hides the answer as ★★★', () => {
+  const r = fresh(); g.onGuess(r, 'a', 'cat', 0);
+  const v = g.publicView(r);
+  assert.equal(v.feed[0].word, '★★★'); assert.equal(v.feed[0].rank, 1);
+  assert.equal(JSON.stringify(v).includes('cat'), false);
+});
+test('publicView closest: unique words by rank, answer excluded, max 10', () => {
+  const r = fresh();
+  g.onGuess(r, 'a', 'car', 0); g.onGuess(r, 'b', 'dog', 0); g.onGuess(r, 'c', 'dog', 0); g.onGuess(r, 'd', 'cat', 0);
+  assert.deepEqual(g.publicView(r).closest.map(x => x.word), ['dog', 'car']);
+});
+test('feed keeps only the last 40 entries', () => {
+  const r = fresh();
+  for (let i = 0; i < 50; i++) g.onGuess(r, 'p' + i, 'dog', 0);
+  const f = g.publicView(r).feed;
+  assert.equal(f.length, 40); assert.equal(f.at(-1).id, 'p49');
+});

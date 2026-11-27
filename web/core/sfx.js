@@ -26,7 +26,9 @@ const arp = (notes, step = .08, opts) => notes.forEach((f, i) => tone(f, i * ste
 export const sfx = {
   pop: () => tone(520, 0, .12, { type: 'triangle', to: 880, vol: .15 }),              // player joins / button
   start: () => arp([392, 523, 659, 784, 1047], .09, { type: 'triangle', vol: .16 }),   // round starts
-  tick: () => tone(1200, 0, .05, { type: 'square', vol: .05 }),                         // last 10 seconds
+  tick: () => tone(1200, 0, .06, { type: 'square', vol: .08 }),                         // last 10 seconds (louder)
+  clock: (s) => tone(s % 2 ? 1500 : 1100, 0, .03, { type: 'sine', vol: .045 }),          // tick-tock every second
+  guess: () => tone(660, 0, .08, { type: 'triangle', vol: .07, to: 880 }),               // someone guessed (host)
   far: () => tone(220, 0, .18, { type: 'sine', vol: .14, to: 160 }),                    // red guess
   warm: () => arp([440, 554], .07, { type: 'triangle', vol: .12 }),                     // orange guess
   close: () => arp([659, 880, 1109], .06, { type: 'triangle', vol: .13 }),              // green guess

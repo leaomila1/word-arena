@@ -10,6 +10,7 @@ export function revealCard(r, { compact = false } = {}) {
   return h('div', { class: 'card stack center pop', style: 'display:flex;flex-direction:column;align-items:center' },
     h('p', { class: 'head muted', style: 'margin:0;font-size:22px' }, `The answer · ${CONTEXTS[r.context] ?? ''}`),
     h('div', { class: 'answer', style: compact ? 'font-size:52px' : '' }, r.answer.toUpperCase()),
+    r.winnerName ? h('p', { class: 'head', style: `margin:0;font-size:${compact ? 22 : 34}px;color:var(--coral-dark)` }, `🏆 ${r.winnerName} got it first!`) : null,
     r.emoji ? h('div', { class: 'row center' }, r.emoji.map(e => emojiImg(e, !compact))) : isle,
     h('p', { style: `font-size:${compact ? 18 : 26}px;max-width:960px;margin:0` }, r.culture_note_en),
     h('p', { lang: 'th', class: 'muted', style: `font-size:${compact ? 17 : 24}px;max-width:960px;margin:0` }, r.culture_note_th));

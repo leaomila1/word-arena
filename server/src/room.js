@@ -86,10 +86,10 @@ export class Room extends DurableObject {
         if (me.role !== 'player' || this.s.phase !== 'round') return;
         const p = this.s.players[me.playerId];
         if (!p || p.spectator) return;
-        const { reply } = games[this.s.gameId].onGuess(this.s.round, me.playerId, String(msg.text ?? '').slice(0, 40), now);
+        const { reply, endRound: ends } = games[this.s.gameId].onGuess(this.s.round, me.playerId, String(msg.text ?? '').slice(0, 40), now);
         this.send(ws, { type: 'reply', ...reply });
         this.dirty = true;
-        if (isExpired(this.s, now)) await this.finishRound(now);
+        if (ends || isExpired(this.s, now)) await this.finishRound(now);
         return;
       }
     }
@@ -130,6 +130,7 @@ export class Room extends DurableObject {
   async finishRound(now) {
     const g = games[this.s.gameId];
     const { scores, reveal } = g.endRound(this.s.round, now);
+    if (reveal.winnerId) reveal.winnerName = this.s.players[reveal.winnerId]?.name ?? null;
     endRound(this.s, scores);
     const msg = { type: 'reveal', gameId: g.id, reveal, top: leaderboard(this.s, 5) };
     this.s.lastReveal = msg;

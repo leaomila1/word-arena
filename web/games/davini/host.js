@@ -1,20 +1,26 @@
 import { h } from '../../core/dom.js';
-import { revealCard } from '../shared.js';
-import { cipherView, keyView } from './player.js';
+import { revealCard, emojiImg } from '../shared.js';
+import { blanks } from './player.js';
 import { sfx } from '../../core/sfx.js';
 export const renderReveal = revealCard;
 
 export function mount(root, _net, m) {
-  const stats = h('div', { class: 'row', style: 'justify-content:space-around;font:700 36px var(--font-head)' });
+  const v = m.view;
+  const tries = h('span', {}, '');
   root.replaceChildren(
-    h('div', { class: 'card stack center', style: 'display:flex;flex-direction:column;align-items:center' }, h('h3', { style: 'margin:0;font-size:30px' }, '🗝️ Crack the code!'), cipherView(m.view.cipher, m.view.shownKey, 76), keyView(m.view.shownKey)),
-    h('div', { class: 'card' }, stats));
-  let before = { decoded: 0, solved: 0 };
-  const update = v => {
-    if (v.solved > before.solved) sfx.correct(); else if (v.decoded > before.decoded) sfx.unlock();
-    before = v;
-    stats.replaceChildren(h('span', {}, `🔓 ${v.decoded} cracked the code`), h('span', {}, `🏆 ${v.solved} solved`), h('span', {}, `✋ ${v.players} tried`));
+    h('div', { class: 'card stack center', style: 'display:flex;flex-direction:column;align-items:center' },
+      h('h3', { style: 'margin:0;font-size:34px' }, '🗝️ What is the word?'),
+      h('div', { class: 'row center', style: 'gap:28px' }, v.emoji.map(e => emojiImg(e, true))),
+      h('p', { class: 'head', style: 'margin:0;font-size:40px' }, `Clue: ${v.clue}`),
+      h('div', { class: 'blanks' }, blanks(v.letters)),
+      h('p', { style: 'margin:0;font:700 28px var(--font-head);color:#9A5B00' }, '⚡ First correct answer wins!')),
+    h('div', { class: 'card center row', style: 'font:700 34px var(--font-head)' }, tries));
+  let before = 0;
+  const update = view => {
+    if (view.players > before) sfx.guess();
+    before = view.players;
+    tries.textContent = `✋ ${view.players} ${view.players === 1 ? 'student has' : 'students have'} tried`;
   };
-  update(m.view);
+  update(v);
   return { update: b => update(b.view), unmount() { root.replaceChildren(); } };
 }

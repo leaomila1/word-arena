@@ -120,3 +120,13 @@ input::placeholder { color: #9A93B5; }
 .toast { position: fixed; left: 50%; top: 16px; transform: translateX(-50%); z-index: 45; background: #fff; color: #B4272C; font-weight: 700; padding: 10px 22px; border-radius: 999px; box-shadow: var(--shadow); }
 footer.attr { position: relative; font-size: 13px; color: var(--ink); text-align: center; padding: 16px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Guess the Word host: live feed + closest board */
+.ctx-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 18px; align-items: start; }
+.ctx-grid .race { height: 520px; }
+.feed { display: flex; flex-direction: column; gap: 8px; max-height: 560px; overflow: hidden; }
+.feed .band { font-size: 22px; padding: 8px 18px; }
+.feed .who { opacity: .75; font-weight: 600; margin-right: .4em; }
+.closest .band { font-size: 24px; }
+@media (max-width: 1300px) { .ctx-grid { grid-template-columns: 1fr 1fr; } .ctx-grid .race-card { grid-column: 1 / -1; } }
+.blanks { font: 700 48px var(--font-head); letter-spacing: .35em; color: var(--violet-dark); }

@@ -44,6 +44,7 @@ async function round(gameId, seconds, makeGuess, minGap) {
   }));
   if (seconds < 180) tx(host, { type: 'end' });
   for (let i = 0; i < 40 && !host.msgs.some(m => m.type === 'reveal' && m.gameId === gameId); i++) await wait(500);
+  // Davini ends on the first correct answer; stop the remaining bots from guessing into the next game.
   return host.msgs.filter(m => m.type === 'reveal' && m.gameId === gameId).pop();
 }
 
@@ -51,19 +52,17 @@ const t0 = Date.now();
 const r1 = await round('contexto', CTX_S, () => pick(vocab), 1500);
 console.log(`contexto reveal: ${r1?.reveal.answer} after ${Math.round((Date.now() - t0) / 1000)} s | boards to host: ${host.msgs.filter(m => m.type === 'board').length}`);
 let target = null;
-const shape = s => s.split(' ').map(w => w.length).join();
 const r2 = await round('davini', DAV_S, p => {
   const rm = p.msgs.filter(m => m.type === 'round').pop();
-  target ??= puzzles.find(z => shape(z.clue_text) === shape(rm.view.cipher.join('')));
-  const r = Math.random();
-  return r < 0.2 ? target.clue_text : r < 0.3 ? target.answer : pick(vocab);
-}, 3000);
+  target ??= puzzles.find(z => z.clue_text.toUpperCase() === rm.view.clue);
+  return Math.random() < 0.02 ? target.answer : pick(vocab);
+}, 2000);
 console.log(`davini reveal: ${r2?.reveal.answer} | top: ${r2?.top.map(t => t.name + ':' + t.score).join(', ')}`);
 
 // Leak check: between round start and reveal, no message may contain the answer or clue unless the player earned it.
 let leaks = 0;
 for (const [r, game] of [[r1, 'contexto'], [r2, 'davini']]) {
-  const secrets = [r.reveal.answer.toLowerCase(), ...(r.reveal.clue ? [r.reveal.clue.toLowerCase()] : [])];
+  const secrets = [r.reveal.answer.toLowerCase()]; // the Davini clue is public by design
   const has = m => { const s = JSON.stringify(m).toLowerCase(); return secrets.some(x => s.includes(x)); };
   for (const p of players) {
     const start = p.msgs.findIndex(m => m.type === 'round' && m.gameId === game);

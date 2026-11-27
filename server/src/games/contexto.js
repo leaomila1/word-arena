@@ -1,6 +1,8 @@
 // Guess the Word (Contexto-style). Rank 1 = the answer. Rank data stays on the server.
 import { fold } from '../core/text.js';
 export const RATE_MS = 1500;
+export const FEED_MAX = 40;
+const HIDDEN = '★★★';
 
 const BANDS = [
   [1, 'gold', 'Correct!'],
@@ -31,7 +33,7 @@ export function createContexto({ vocabIndex, targets, getRanks }) {
     },
 
     startRound(content, _rng, nowMs) {
-      return { targetId: content.id, startedAt: nowMs, vocabSize: vocabIndex.size, players: {} };
+      return { targetId: content.id, startedAt: nowMs, vocabSize: vocabIndex.size, players: {}, feed: [], seq: 0, closest: {} };
     },
 
     onGuess(r, playerId, text, nowMs) {
@@ -46,6 +48,11 @@ export function createContexto({ vocabIndex, targets, getRanks }) {
       if (!p.guesses.some(g => g.word === word)) p.guesses.push({ word, rank });
       if (p.best == null || rank < p.best) p.best = rank;
       if (rank === 1) p.solvedAt = nowMs;
+      // live feed for the big screen (answer masked)
+      r.feed ??= []; r.closest ??= {}; r.seq = (r.seq ?? 0) + 1;
+      r.feed.push({ seq: r.seq, id: playerId, word: rank === 1 ? HIDDEN : word, rank });
+      if (r.feed.length > FEED_MAX) r.feed.splice(0, r.feed.length - FEED_MAX);
+      if (rank !== 1) r.closest[word] = rank;
       return { reply: { word, rank, color: colorFor(rank), label: labelFor(rank) } };
     },
 
@@ -57,8 +64,12 @@ export function createContexto({ vocabIndex, targets, getRanks }) {
     },
 
     publicView(r) {
+      const closest = Object.entries(r.closest ?? {}).sort((a, b) => a[1] - b[1]).slice(0, 10)
+        .map(([word, rank]) => ({ word, rank, color: colorFor(rank) }));
       return {
         vocabSize: r.vocabSize,
+        feed: (r.feed ?? []).map(f => ({ ...f, color: colorFor(f.rank) })),
+        closest,
         players: Object.entries(r.players).map(([id, p]) => ({ id, bestRank: p.best, solved: p.solvedAt != null })),
       };
     },
