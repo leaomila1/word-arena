@@ -3,7 +3,7 @@ import { qrSvg } from './core/qr.js';
 import { renderTimer } from './core/timer.js';
 import { h, $, show, CONTEXTS, ERRORS, CLOSED } from './core/dom.js';
 import { mountSky, confetti, FLAGS } from './core/scene.js';
-import { sfx, unlockAudio, startMusic, stopMusic, muteButton } from './core/sfx.js';
+import { sfx, unlockAudio, startMusic, stopMusic, muteButton, startGameMusic, setGameMusicFast, stopGameMusic } from './core/sfx.js';
 import { countdown, tension, calm, banner, drumroll, pauseOverlay } from './core/fx.js';
 import { hintChip } from './games/shared.js';
 const ROUND_MS = 180_000;
@@ -20,7 +20,7 @@ function init() {
   GAME_INFO.contexto[2] = 'Find the secret word by meaning — first to find it wins';
   mountSky();
   document.body.append(muteButton());
-  document.addEventListener('mutechange', e => { if (!e.detail && !$('[data-view=lobby]').hidden) startMusic(); });
+  document.addEventListener('mutechange', e => { if (e.detail) return; if (!$('[data-view=lobby]').hidden) startMusic(); else if (!$('[data-view=round]').hidden && !paused && stopTimer) startGameMusic({ fast: endsAt - Date.now() <= 30_000 }); });
   // Audio may only start after a click on the page.
   document.addEventListener('click', () => { unlockAudio(); if (!$('[data-view=lobby]').hidden) startMusic(); }, { once: true });
 
@@ -49,11 +49,11 @@ function init() {
     if (m.code === 'BAD_HOST') { try { localStorage.removeItem(`host:${code}`); } catch {} }
     flash(ERRORS[m.code] || m.code);
   });
-  const runTimer = () => { stopTimer?.(); stopTimer = renderTimer($('#timer'), endsAt, { onTick: s => { tension(s, { heartbeat: true }); s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)); } }); };
+  const runTimer = () => { stopTimer?.(); stopTimer = renderTimer($('#timer'), endsAt, { onTick: s => { tension(s, { heartbeat: true }); setGameMusicFast(s <= 30); s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)); } }); };
   const setPaused = on => {
     paused = on; $('#pause').textContent = on ? '▶ Continue' : '⏸ Pause';
     pauseOverlay(on);
-    if (on) { stopTimer?.(); stopTimer = null; } else runTimer();
+    if (on) { stopTimer?.(); stopTimer = null; stopGameMusic(); } else { runTimer(); startGameMusic({ fast: endsAt - Date.now() <= 30_000 }); }
   };
   net.on('paused', () => setPaused(true));
   net.on('resumed', m => { endsAt = m.endsAt; sfx.start(); setPaused(false); });
@@ -94,7 +94,7 @@ function init() {
     if (m.paused) { renderTimer($('#timer'), m.endsAt)(); return setPaused(true); }
     if (m.endsAt - Date.now() > ROUND_MS - 5000) await countdown(); // fresh round only, not after a reload
     if (my !== seq) return;
-    runTimer();
+    runTimer(); startGameMusic({ fast: m.endsAt - Date.now() <= 30_000 });
   });
   net.on('board', m => game?.update(m));
   net.on('hint', m => {
@@ -104,7 +104,7 @@ function init() {
   });
   net.on('reveal', async m => {
     const my = ++seq;
-    stopTimer?.(); pauseOverlay(false); paused = false;
+    stopTimer?.(); stopGameMusic(); pauseOverlay(false); paused = false;
     const [mod] = await Promise.all([import(`./games/${m.gameId}/host.js`), drumroll(1.8)]);
     if (my !== seq) return;
     game?.unmount(); game = null;

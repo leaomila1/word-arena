@@ -69,7 +69,27 @@ export function startMusic() {
     step++;
   }, 260);
 }
-export function stopMusic() { clearInterval(musicTimer); musicTimer = null; }
+export function stopMusic() { clearInterval(musicTimer); musicTimer = null; stopGameMusic(); }
+
+// In-game music (big screen only): bouncy C–Am–F–G loop, bass + arpeggio + hi-hat.
+// setGameMusicFast(true) in the last 30 s: faster tempo, busier hi-hat, octave up — builds tension.
+const CHORDS = [[262, 330, 392], [220, 262, 330], [175, 220, 262], [196, 247, 294]];
+const BASS = [131, 110, 87, 98];
+let game = { timer: null, fast: false, step: 0 };
+function gameStep() {
+  if (muted) return;
+  const s = game.step++, bar = Math.floor(s / 8) % 4, beat = s % 8, ch = CHORDS[bar], up = game.fast ? 2 : 1;
+  if (beat % 4 === 0) tone(BASS[bar], 0, .35, { type: 'triangle', vol: .11 });
+  if (beat % 4 === 2) tone(BASS[bar] * 1.5, 0, .2, { type: 'triangle', vol: .07 });
+  tone(ch[[0, 1, 2, 1][beat % 4]] * 2 * up, 0, .14, { type: 'square', vol: .022 });
+  if (game.fast || beat % 2 === 1) noise(0, .03, { vol: game.fast ? .035 : .025, freq: 8000, q: .5 });
+  if (beat === 0 && bar === 0) tone(ch[2] * 4, 0, .3, { type: 'sine', vol: .03 });
+}
+function schedule() { clearInterval(game.timer); game.timer = setInterval(gameStep, game.fast ? 170 : 230); }
+export function startGameMusic({ fast = false } = {}) { if (game.timer && game.fast === fast) return; game.fast = fast; game.step = 0; if (!ac()) return; schedule(); }
+export function setGameMusicFast(on) { if (!game.timer || game.fast === on) return; game.fast = on; schedule(); }
+export function stopGameMusic() { clearInterval(game.timer); game.timer = null; }
+export const gameMusicOn = () => !!game.timer;
 
 export function muteButton() {
   const b = document.createElement('button');
