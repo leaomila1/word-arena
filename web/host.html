@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Arena · Host</title><link rel="stylesheet" href="styles.css"><script src="vendor/qrcode.js"></script></head>
+<body>
+<p id="status" class="status" hidden role="status">Reconnecting…</p>
+<main class="wrap wrap--wide stack">
+  <p id="msg" class="toast" role="alert" hidden></p>
+  <section data-view="lobby" class="stack">
+    <div class="row" style="align-items:stretch;flex-wrap:nowrap">
+      <div class="card stack" style="flex:1">
+        <h1 class="logo logo--ink" style="font-size:56px;text-align:left">Word <span>Arena</span></h1>
+        <p class="head" style="font-size:26px;margin:0">Go to <b id="joinUrl"></b> and enter</p>
+        <div class="big-code" id="code"></div>
+      </div>
+      <div class="card center row" style="flex-direction:column"><div id="qr" class="qr" aria-label="QR code to join"></div><b>Scan to join</b></div>
+    </div>
+    <div class="card stack">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0"><span class="count-badge"><span id="count">0</span> / 200</span> players on board</h2>
+        <button id="start" class="btn btn--go btn--big">Start round ▶</button>
+      </div>
+      <fieldset class="tiles" id="gameTiles" style="border:0;padding:0;margin:0"><legend class="sr-only" hidden>Game</legend></fieldset>
+      <fieldset class="tiles" id="cultureTiles" style="border:0;padding:0;margin:0"></fieldset>
+      <div id="players" class="chips" aria-live="polite"></div>
+      <p id="empty" class="muted center" style="display:flex;font-size:22px">Waiting for students to fly in… 🐦</p>
+    </div>
+  </section>
+  <section data-view="round" class="stack" hidden>
+    <div class="card topbar"><h2 id="roundTitle" style="margin:0;font-size:36px"></h2><div class="timer" id="timer"></div><button id="endNow" class="btn btn--ghost">End round</button></div>
+    <div id="game-root"></div>
+  </section>
+  <section data-view="reveal" class="stack" hidden>
+    <div id="reveal-root"></div>
+    <div class="card stack"><h2>Top 5</h2><ol id="top" class="podium"></ol>
+      <div class="row"><button id="again" class="btn btn--go">Next round ▶</button><button id="toLobby" class="btn btn--ghost">Change game</button><button id="close" class="btn btn--danger">Close room</button></div></div>
+  </section>
+  <section data-view="closed" class="card stack center" hidden><h2 id="closedText">Room closed</h2><p><a class="btn btn--sun" href="index.html">Start again</a></p></section>
+</main>
+<footer class="attr">Emoji by <a href="https://openmoji.org">OpenMoji</a> (CC BY-SA 4.0)</footer>
+<script type="module" src="host.js"></script>
+</body></html>

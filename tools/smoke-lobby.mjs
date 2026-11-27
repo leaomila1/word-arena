@@ -1,0 +1,24 @@
+// Manual check for Task 1: host + players, kick, host refresh. Usage: node tools/smoke-lobby.mjs http://127.0.0.1:8787
+const base = process.argv[2] || 'http://127.0.0.1:8787';
+const wsBase = base.replace(/^http/, 'ws');
+const open = (code) => new Promise((res, rej) => { const ws = new WebSocket(`${wsBase}/ws/${code}`); ws.msgs = []; ws.onmessage = e => ws.msgs.push(JSON.parse(e.data)); ws.onopen = () => res(ws); ws.onerror = rej; });
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const last = (ws, type) => [...ws.msgs].reverse().find(m => m.type === type);
+const { code, hostToken } = await (await fetch(`${base}/rooms`, { method: 'POST' })).json();
+const host = await open(code); host.send(JSON.stringify({ type: 'host', hostToken }));
+const a = await open(code); a.send(JSON.stringify({ type: 'join', name: 'Ann' }));
+const b = await open(code); b.send(JSON.stringify({ type: 'join', name: 'Bob' }));
+const dup = await open(code); dup.send(JSON.stringify({ type: 'join', name: 'ann' }));
+await wait(500);
+console.log('lobby:', last(host, 'lobby').players.map(p => p.name).join(','));
+console.log('dup:', last(dup, 'error')?.code);
+const bobId = last(b, 'joined').playerId;
+host.send(JSON.stringify({ type: 'kick', playerId: bobId })); await wait(400);
+console.log('after kick:', last(host, 'lobby').players.map(p => p.name).join(','), '| bob got:', last(b, 'closed')?.reason);
+host.close(); const host2 = await open(code); host2.send(JSON.stringify({ type: 'host', hostToken })); await wait(400);
+console.log('host refresh lobby:', last(host2, 'lobby').players.map(p => p.name).join(','));
+const tokA = last(a, 'joined').token; a.close(); const a2 = await open(code); a2.send(JSON.stringify({ type: 'join', name: 'x', token: tokA })); await wait(400);
+console.log('reconnect:', last(a2, 'joined').name, last(a2, 'joined').playerId === last(a, 'joined').playerId);
+const bad = await open(code); bad.send(JSON.stringify({ type: 'host', hostToken: 'nope' })); await wait(300);
+console.log('bad host:', last(bad, 'error')?.code);
+process.exit(0);

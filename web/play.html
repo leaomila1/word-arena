@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Arena · Play</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<p id="status" class="status" hidden role="status">Reconnecting…</p>
+<main class="wrap stack" style="max-width:560px">
+  <section data-view="name" class="stack" hidden>
+    <h1 class="logo" style="font-size:52px">Word <span>Arena</span></h1>
+    <div class="card stack">
+      <p class="head center" style="display:flex;font-size:22px;margin:0">Game <span id="code" style="margin-left:.3em;color:var(--violet-dark)"></span></p>
+      <form id="nameForm" class="stack">
+        <div><label for="name">Your nickname</label><input id="name" type="text" maxlength="16" autocomplete="off" required placeholder="e.g. Mint"></div>
+        <button class="btn btn--go btn--big" type="submit" style="width:100%">Let's fly! 🐦</button>
+      </form>
+      <p id="msg" class="msg msg--err" role="alert"></p>
+    </div>
+  </section>
+  <section data-view="wait" class="stack" hidden>
+    <div id="waitIsland" class="float-island" style="position:relative;width:70%;margin:24px auto 0"></div>
+    <div class="card stack center" style="display:flex;flex-direction:column"><h2 style="margin:0">You're in, <span id="me"></span>! 🎉</h2><p class="muted" id="waitText" style="margin:0">Watch the big screen. The game starts soon.</p></div>
+  </section>
+  <section data-view="round" class="stack" hidden>
+    <div class="card topbar" style="padding:12px 18px"><strong id="roundTitle" style="font-size:22px"></strong><span class="timer" id="timer" style="font-size:30px"></span></div>
+    <div id="game-root"></div>
+  </section>
+  <section data-view="reveal" class="stack" hidden>
+    <div class="card center stack" style="display:flex;flex-direction:column"><h2 id="gained" class="pop" style="font-size:44px;margin:0;color:var(--violet-dark)"></h2><p class="muted" style="margin:0">Total score: <b id="total"></b></p></div>
+    <div id="reveal-root"></div>
+  </section>
+  <section data-view="closed" class="card stack center" style="flex-direction:column" hidden><h2 id="closedText">The game has ended.</h2><a class="btn btn--sun" href="index.html">Back to start</a></section>
+</main>
+<footer class="attr">Emoji by <a href="https://openmoji.org">OpenMoji</a> (CC BY-SA 4.0)</footer>
+<script type="module" src="play.js"></script>
+</body></html>

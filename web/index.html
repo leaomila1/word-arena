@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Arena · Sky Islands</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<main class="wrap stack">
+  <h1 class="logo">Word <span>Arena</span></h1>
+  <p class="tagline">Fly across five islands of language and culture ✈️</p>
+  <div id="islands" class="row center" style="gap:4px;flex-wrap:nowrap"></div>
+  <section class="card stack" style="max-width:520px;margin-inline:auto">
+    <h2 class="center" style="display:flex">Join a game</h2>
+    <form id="join" class="stack">
+      <div><label for="code">Game code</label><input id="code" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required placeholder="123456"></div>
+      <button class="btn btn--go btn--big" type="submit" style="width:100%">Join ✨</button>
+    </form>
+  </section>
+  <section class="card row center" style="max-width:520px;margin-inline:auto">
+    <span class="muted">Teacher?</span>
+    <button id="host" class="btn btn--sun">Host a new game</button>
+    <p id="hostMsg" class="msg msg--err" role="alert" style="width:100%"></p>
+  </section>
+</main>
+<footer class="attr">Emoji by <a href="https://openmoji.org">OpenMoji</a> (CC BY-SA 4.0)</footer>
+<script type="module">
+  import { createRoom } from './core/net.js';
+  import { mountSky, islandSvg, FLAGS } from './core/scene.js';
+  mountSky();
+  const names = { en: 'English', fr: 'French', ru: 'Russian', ko: 'Korean', zh: 'Chinese' };
+  document.getElementById('islands').innerHTML = Object.entries(FLAGS).map(([k, f], i) =>
+    `<div class="float-island" style="position:relative;width:min(18vw,170px);animation-delay:-${i * 1.3}s">${islandSvg({ flag: f, seed: i * 7 + 3, waterfall: i % 2 === 0, label: names[k] })}</div>`).join('');
+  document.getElementById('join').onsubmit = e => { e.preventDefault(); location.href = `play.html?code=${document.getElementById('code').value.trim()}`; };
+  document.getElementById('host').onclick = async (e) => {
+    e.target.disabled = true;
+    try { const { code, hostToken } = await createRoom(); sessionStorage.setItem(`host:${code}`, hostToken); location.href = `host.html?code=${code}`; }
+    catch { document.getElementById('hostMsg').textContent = 'Could not reach the game server. Check the internet connection and try again.'; e.target.disabled = false; }
+  };
+</script>
+</body></html>

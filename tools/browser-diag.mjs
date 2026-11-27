@@ -1,0 +1,12 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const W = 'http://127.0.0.1:8080', logs = [];
+const host = await (await b.newContext()).newPage(); host.on('console', m => logs.push('host ' + m.text())); host.on('pageerror', e => logs.push('host ERR ' + e.message));
+await host.goto(W + '/index.html'); await host.click('#host'); await host.waitForURL(/host.html/); await host.waitForFunction(() => document.querySelector('#code').textContent.length === 6);
+const code = await host.textContent('#code');
+const a = await (await b.newContext()).newPage(); a.on('console', m => logs.push('ann ' + m.text())); a.on('pageerror', e => logs.push('ann ERR ' + e.message));
+await a.goto(`${W}/play.html?code=${code}`); await a.fill('#name', 'Ann'); await a.click('button[type=submit]'); await a.waitForTimeout(800);
+await host.selectOption('#game', 'davini'); await host.click('#start'); await a.waitForTimeout(1500);
+console.log('host msg:', await host.textContent('#msg'), '| host views:', await host.$$eval('[data-view]', v => v.map(x => x.dataset.view + (x.hidden ? '-' : '+')).join(' ')));
+console.log('ann views:', await a.$$eval('[data-view]', v => v.map(x => x.dataset.view + (x.hidden ? '-' : '+')).join(' ')));
+console.log(logs.join('\n')); await b.close();

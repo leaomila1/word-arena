@@ -1,0 +1,35 @@
+name: Deploy game server (Cloudflare)
+on:
+  push:
+    branches: [main]
+    paths: ['server/**', '.github/workflows/deploy-worker.yml']
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: server } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Check secrets are set
+        env: { T: '${{ secrets.CLOUDFLARE_API_TOKEN }}', A: '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' }
+        run: |
+          if [ -z "$T" ] || [ -z "$A" ]; then
+            echo "::error::Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in Settings → Secrets and variables → Actions (see docs/คู่มือครู.md)."
+            exit 1
+          fi
+      - name: Check ALLOWED_ORIGIN is set to the website address
+        run: |
+          if grep -q 'ALLOWED_ORIGIN = "\*"' wrangler.toml; then
+            echo "::error::Set ALLOWED_ORIGIN in server/wrangler.toml to your GitHub Pages address (see docs/คู่มือครู.md step 1.6) before deploying."
+            exit 1
+          fi
+      - run: npm ci || npm install
+      - name: Unit tests
+        run: npm test
+      - name: Deploy
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

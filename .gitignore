@@ -1,0 +1,5 @@
+.superpowers/
+node_modules/
+.wrangler/
+__pycache__/
+content/words-review.csv
