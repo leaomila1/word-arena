@@ -2,6 +2,10 @@
 import { fold } from '../core/text.js';
 export const RATE_MS = 1500;
 export const FEED_MAX = 40;
+export const HINT_MS = 30_000;
+export const CULTURE = { en: 'English', fr: 'French', ru: 'Russian', ko: 'Korean', zh: 'Chinese' };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const pattern = (w, show) => [...w.toUpperCase()].map((c, i) => (show.includes(i) ? c : '_')).join(' ');
 const HIDDEN = '★★★';
 
 const BANDS = [
@@ -17,7 +21,7 @@ const labelFor = rank => band(rank)[2];
 export const scoreCorrect = seconds => Math.max(400, 1000 - 3 * seconds);
 export const scoreTimeout = bestRank => (bestRank == null ? 0 : Math.max(0, Math.round(400 - bestRank / 5)));
 
-export function createContexto({ vocabIndex, targets, getRanks }) {
+export function createContexto({ vocabIndex, targets, getRanks, meta = {} }) {
   const byId = new Map(targets.map(t => [t.id, t]));
   const player = (r, id) => (r.players[id] ??= { best: null, solvedAt: null, last: -Infinity, guesses: [] });
 
@@ -54,6 +58,20 @@ export function createContexto({ vocabIndex, targets, getRanks }) {
       if (r.feed.length > FEED_MAX) r.feed.splice(0, r.feed.length - FEED_MAX);
       if (rank !== 1) r.closest[word] = rank;
       return { reply: { word, rank, color: colorFor(rank), label: labelFor(rank) } };
+    },
+
+    // Hints unlock every 30 s: category+culture, emoji, first letter, clue, last letter.
+    hintLevel(r, nowMs) { return Math.min(5, Math.floor((nowMs - r.startedAt) / HINT_MS)); },
+    hints(r, level) {
+      const t = byId.get(r.targetId), m = meta[r.targetId], w = t.word;
+      const list = [
+        { kind: 'category', icon: '🗂️', text: m?.category ? `${cap(m.category)} · ${CULTURE[t.context]}` : CULTURE[t.context] },
+        m?.emoji && { kind: 'emoji', icon: '🖼️', emoji: m.emoji },
+        { kind: 'letters', icon: '🔤', text: pattern(w, [0]) },
+        m?.clue_text && { kind: 'clue', icon: '💡', text: m.clue_text.toUpperCase() },
+        { kind: 'letters', icon: '🔤', text: pattern(w, [0, w.length - 1]) },
+      ].filter(Boolean);
+      return list.slice(0, level);
     },
 
     playerView(r, playerId) {

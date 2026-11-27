@@ -4,6 +4,17 @@ export const TOP = 5000;
 export const rankText = r => (r > TOP ? `${TOP}+` : `#${r}`);
 export const emojiImg = (hex, big) => h('img', { class: big ? 'emoji emoji--big' : 'emoji', src: `vendor/openmoji/${hex}.svg`, alt: '' });
 
+// One hint chip: icon + text, or icon + emoji pictures.
+export const hintChip = (x, isNew) => h('span', { class: `hint${isNew ? ' new' : ''}` }, x.icon,
+  x.emoji ? x.emoji.map(e => emojiImg(e)) : h('span', {}, x.text));
+// Renders the hint row; chips beyond `seen` animate in. Returns the new count.
+export function renderHints(el, hints = [], seen = 0) {
+  el.replaceChildren(...hints.map((x, i) => hintChip(x, i >= seen)));
+  return hints.length;
+}
+// Letter pattern 'K _ M _ _ _' → spans, revealed letters highlighted.
+export const letterSpans = text => text.split(' ').map(c => h('span', { class: c === '_' ? '' : 'got' }, c, ' '));
+
 export function revealCard(r, { compact = false } = {}) {
   const isle = h('div', { class: 'float-island', style: `position:relative;width:${compact ? 46 : 22}%;margin:0 auto` });
   isle.innerHTML = islandSvg({ flag: FLAGS[r.context], seed: r.answer.length * 13 + 5, trees: 3 });

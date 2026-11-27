@@ -22,7 +22,11 @@ export class Room extends DurableObject {
   toHosts(msg) { for (const ws of this.sockets('host')) this.send(ws, msg); }
   toPlayers(msg) { for (const ws of this.sockets('player')) this.send(ws, msg); }
   lobbyMsg() { return { type: 'lobby', players: Object.values(this.s.players).map(({ id, name, score }) => ({ id, name, score })) }; }
-  roundMsg() { return { type: 'round', gameId: this.s.gameId, endsAt: this.s.endsAt }; }
+  currentHints() {
+    const g = games[this.s.gameId], r = this.s.round;
+    return g?.hints && r ? g.hints(r, r.hintShown ?? 0) : [];
+  }
+  roundMsg() { return { type: 'round', gameId: this.s.gameId, endsAt: this.s.endsAt, hints: this.currentHints() }; }
 
   async fetch(request) {
     const url = new URL(request.url);
@@ -156,6 +160,15 @@ export class Room extends DurableObject {
     const now = Date.now();
     if (this.s.phase === 'round') {
       if (isExpired(this.s, now)) return this.finishRound(now);
+      const g = games[this.s.gameId], r = this.s.round;
+      if (g.hintLevel) {
+        const lvl = g.hintLevel(r, now);
+        if (lvl !== (r.hintShown ?? 0)) {
+          r.hintShown = lvl; this.dirty = true;
+          const msg = { type: 'hint', level: lvl, hints: g.hints(r, lvl) };
+          this.toHosts(msg); this.toPlayers(msg);
+        }
+      }
       if (this.dirty) {
         this.dirty = false;
         await this.save();

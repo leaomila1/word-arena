@@ -2,6 +2,8 @@ import { h } from '../../core/dom.js';
 import { TOP, revealCard, rankText } from '../shared.js';
 import { islandSvg, confetti } from '../../core/scene.js';
 import { sfx, guessSound } from '../../core/sfx.js';
+import { banner } from '../../core/fx.js';
+import { renderHints } from '../shared.js';
 export const renderReveal = revealCard;
 
 // Big screen: race track (birds) + live feed of every guess (name, word, rank) + closest words of the whole room.
@@ -18,13 +20,14 @@ export function mount(root, _net, m, ctx = { nameOf: () => '?' }) {
   const stats = h('div', { class: 'row', style: 'justify-content:space-between;font:700 28px var(--font-head)' });
   const feed = h('div', { class: 'feed', 'aria-live': 'polite' });
   const closest = h('div', { class: 'stack closest', style: 'gap:8px' });
-  root.replaceChildren(h('div', { class: 'ctx-grid' },
+  const hints = h('div', { class: 'hints', style: 'font-size:26px' });
+  root.replaceChildren(h('div', { class: 'card', style: 'padding:12px 18px' }, h('div', { class: 'row', style: 'gap:12px;align-items:center' }, h('b', { style: 'font:700 26px var(--font-head)' }, '💡 Hints'), hints, h('span', { class: 'hint-next', 'data-empty': '' }, 'A new hint every 30 seconds'))), h('div', { class: 'ctx-grid' },
     h('div', { class: 'card stack race-card' }, stats, race),
     h('div', { class: 'card stack' }, h('h3', { style: 'margin:0;font-size:28px' }, '💬 Live guesses'), feed),
     h('div', { class: 'card stack' }, h('h3', { style: 'margin:0;font-size:28px' }, '🎯 Closest so far'), closest)));
 
   const birds = new Map();
-  let lastSeq = 0, solvedBefore = 0, first = true;
+  let lastSeq = 0, solvedBefore = 0, first = true, bestRoom = Infinity, hintSeen = 0, lastHot = 0;
   function update(view) {
     const ps = view.players, solved = ps.filter(p => p.solved).length;
     stats.replaceChildren(h('span', {}, `🐦 ${ps.length} flying`), h('span', {}, `🏝️ ${solved} found it!`));
@@ -52,8 +55,15 @@ export function mount(root, _net, m, ctx = { nameOf: () => '?' }) {
       if (solved > solvedBefore) { sfx.correct(); confetti(40); }
       else { const best = fresh.map(f => f.color).sort((a, b) => ORDER[a] - ORDER[b])[0]; best === 'red' ? sfx.guess() : guessSound(best); }
     }
+    // "X is getting closer!" when someone beats the room's best (not the answer itself), at most every 4 s
+    for (const f of fresh) if (f.rank > 1 && f.rank < bestRoom) {
+      const was = bestRoom; bestRoom = f.rank;
+      if (!first && was !== Infinity && f.rank <= 1500 && Date.now() - lastHot > 4000) { lastHot = Date.now(); banner(`🔥 ${ctx.nameOf(f.id)} is getting closer! ${rankText(f.rank)}`, { tone: 'hot', ms: 2600 }); }
+    }
     solvedBefore = solved; first = false;
   }
   update(m.view);
-  return { update: b => update(b.view), unmount() { root.replaceChildren(); } };
+  const hint = list => { hintSeen = renderHints(hints, list, hintSeen); root.querySelector('[data-empty]').hidden = list.length > 0; };
+  hint(m.hints); hintSeen = m.hints?.length ?? 0;
+  return { update: b => update(b.view), hint, unmount() { root.replaceChildren(); } };
 }

@@ -11,7 +11,8 @@ export const puzzles = [
 "1F68F"
 ],
 "culture_note_en": "People in the UK are known for queuing patiently, and pushing in is seen as very rude.",
-"culture_note_th": "คนอังกฤษขึ้นชื่อเรื่องการต่อแถวอย่างอดทน การแซงคิวถือว่าเสียมารยาทมาก"
+"culture_note_th": "คนอังกฤษขึ้นชื่อเรื่องการต่อแถวอย่างอดทน การแซงคิวถือว่าเสียมารยาทมาก",
+"category": "etiquette"
 },
 {
 "id": "en-02",
@@ -24,7 +25,8 @@ export const puzzles = [
 "1F1EC-1F1E7"
 ],
 "culture_note_en": "In British English a biscuit is what Americans call a cookie, and many people dip biscuits in their tea.",
-"culture_note_th": "ในภาษาอังกฤษแบบบริติช biscuit คือสิ่งที่คนอเมริกันเรียกว่า cookie และหลายคนชอบจุ่มบิสกิตในชา"
+"culture_note_th": "ในภาษาอังกฤษแบบบริติช biscuit คือสิ่งที่คนอเมริกันเรียกว่า cookie และหลายคนชอบจุ่มบิสกิตในชา",
+"category": "food"
 },
 {
 "id": "en-03",
@@ -37,7 +39,8 @@ export const puzzles = [
 "1FAD6"
 ],
 "culture_note_en": "Scones are often eaten with clotted cream and jam as part of a \"cream tea\".",
-"culture_note_th": "สโคนมักกินคู่กับครีมข้นและแยมในชุดน้ำชาที่เรียกว่า cream tea"
+"culture_note_th": "สโคนมักกินคู่กับครีมข้นและแยมในชุดน้ำชาที่เรียกว่า cream tea",
+"category": "food"
 },
 {
 "id": "en-04",
@@ -50,7 +53,8 @@ export const puzzles = [
 "1F37D"
 ],
 "culture_note_en": "In British English \"pudding\" can mean any dessert, not only a soft sweet food.",
-"culture_note_th": "ในภาษาอังกฤษแบบบริติช pudding หมายถึงของหวานหลังอาหารได้ทุกชนิด ไม่ได้หมายถึงพุดดิ้งเนื้อนุ่มเท่านั้น"
+"culture_note_th": "ในภาษาอังกฤษแบบบริติช pudding หมายถึงของหวานหลังอาหารได้ทุกชนิด ไม่ได้หมายถึงพุดดิ้งเนื้อนุ่มเท่านั้น",
+"category": "food"
 },
 {
 "id": "en-05",
@@ -63,7 +67,8 @@ export const puzzles = [
 "1F373"
 ],
 "culture_note_en": "On Pancake Day (Shrove Tuesday) people in the UK eat pancakes, and some towns hold pancake races.",
-"culture_note_th": "ในวัน Pancake Day (Shrove Tuesday) คนอังกฤษกินแพนเค้ก และบางเมืองจัดการวิ่งแข่งถือกระทะแพนเค้ก"
+"culture_note_th": "ในวัน Pancake Day (Shrove Tuesday) คนอังกฤษกินแพนเค้ก และบางเมืองจัดการวิ่งแข่งถือกระทะแพนเค้ก",
+"category": "festival"
 },
 {
 "id": "en-06",
@@ -76,7 +81,8 @@ export const puzzles = [
 "1F319"
 ],
 "culture_note_en": "On 5 November, Bonfire Night, people light bonfires and fireworks to remember the failed Gunpowder Plot of 1605.",
-"culture_note_th": "วันที่ 5 พฤศจิกายน หรือ Bonfire Night คนอังกฤษจุดกองไฟและพลุ เพื่อรำลึกถึงแผนวางระเบิดรัฐสภาที่ล้มเหลวในปี 1605"
+"culture_note_th": "วันที่ 5 พฤศจิกายน หรือ Bonfire Night คนอังกฤษจุดกองไฟและพลุ เพื่อรำลึกถึงแผนวางระเบิดรัฐสภาที่ล้มเหลวในปี 1605",
+"category": "festival"
 },
 {
 "id": "en-07",
@@ -89,7 +95,8 @@ export const puzzles = [
 "1F6E1"
 ],
 "culture_note_en": "Britain has hundreds of historic castles, and Windsor Castle is one of the official homes of the monarch.",
-"culture_note_th": "สหราชอาณาจักรมีปราสาทเก่าแก่หลายร้อยแห่ง ปราสาทวินด์เซอร์เป็นหนึ่งในที่ประทับอย่างเป็นทางการของพระมหากษัตริย์"
+"culture_note_th": "สหราชอาณาจักรมีปราสาทเก่าแก่หลายร้อยแห่ง ปราสาทวินด์เซอร์เป็นหนึ่งในที่ประทับอย่างเป็นทางการของพระมหากษัตริย์",
+"category": "place"
 },
 {
 "id": "en-08",
@@ -102,7 +109,8 @@ export const puzzles = [
 "2600"
 ],
 "culture_note_en": "Cricket developed in England and is hugely popular in India, Australia and Pakistan; a match can last up to five days.",
-"culture_note_th": "คริกเก็ตเกิดขึ้นในอังกฤษ และเป็นที่นิยมมากในอินเดีย ออสเตรเลีย และปากีสถาน การแข่งขันหนึ่งนัดอาจยาวถึงห้าวัน"
+"culture_note_th": "คริกเก็ตเกิดขึ้นในอังกฤษ และเป็นที่นิยมมากในอินเดีย ออสเตรเลีย และปากีสถาน การแข่งขันหนึ่งนัดอาจยาวถึงห้าวัน",
+"category": "sport"
 },
 {
 "id": "en-09",
@@ -115,7 +123,8 @@ export const puzzles = [
 "1F3DF"
 ],
 "culture_note_en": "The modern rules of football were written in England in 1863 when the Football Association was founded.",
-"culture_note_th": "กติกาฟุตบอลสมัยใหม่เขียนขึ้นในอังกฤษเมื่อปี 1863 พร้อมกับการก่อตั้งสมาคมฟุตบอล (The FA)"
+"culture_note_th": "กติกาฟุตบอลสมัยใหม่เขียนขึ้นในอังกฤษเมื่อปี 1863 พร้อมกับการก่อตั้งสมาคมฟุตบอล (The FA)",
+"category": "sport"
 },
 {
 "id": "en-10",
@@ -128,7 +137,8 @@ export const puzzles = [
 "1F6B6"
 ],
 "culture_note_en": "Rain is common in the UK, so many people carry an umbrella even on sunny mornings.",
-"culture_note_th": "ฝนตกบ่อยในสหราชอาณาจักร หลายคนจึงพกร่มติดตัวแม้ตอนเช้าแดดดี"
+"culture_note_th": "ฝนตกบ่อยในสหราชอาณาจักร หลายคนจึงพกร่มติดตัวแม้ตอนเช้าแดดดี",
+"category": "daily life"
 },
 {
 "id": "en-11",
@@ -141,7 +151,8 @@ export const puzzles = [
 "1F610"
 ],
 "culture_note_en": "British people often say \"sorry\" even when something is not their fault; it is a polite habit.",
-"culture_note_th": "คนอังกฤษมักพูด sorry แม้เรื่องนั้นจะไม่ใช่ความผิดของตัวเอง เป็นนิสัยแสดงความสุภาพ"
+"culture_note_th": "คนอังกฤษมักพูด sorry แม้เรื่องนั้นจะไม่ใช่ความผิดของตัวเอง เป็นนิสัยแสดงความสุภาพ",
+"category": "etiquette"
 },
 {
 "id": "en-12",
@@ -154,7 +165,8 @@ export const puzzles = [
 "1F44B"
 ],
 "culture_note_en": "In British English \"cheers\" can mean \"thank you\" or \"goodbye\", not only a toast.",
-"culture_note_th": "ในภาษาอังกฤษแบบบริติช cheers ใช้แทน \"ขอบคุณ\" หรือ \"ลาก่อน\" ได้ ไม่ได้ใช้เฉพาะตอนชนแก้ว"
+"culture_note_th": "ในภาษาอังกฤษแบบบริติช cheers ใช้แทน \"ขอบคุณ\" หรือ \"ลาก่อน\" ได้ ไม่ได้ใช้เฉพาะตอนชนแก้ว",
+"category": "greetings"
 },
 {
 "id": "en-13",
@@ -167,7 +179,8 @@ export const puzzles = [
 "1F642"
 ],
 "culture_note_en": "\"Mate\" is an informal British and Australian word for a friend, often used when talking to someone.",
-"culture_note_th": "mate เป็นคำไม่เป็นทางการแบบอังกฤษและออสเตรเลีย แปลว่าเพื่อน มักใช้เรียกคู่สนทนา"
+"culture_note_th": "mate เป็นคำไม่เป็นทางการแบบอังกฤษและออสเตรเลีย แปลว่าเพื่อน มักใช้เรียกคู่สนทนา",
+"category": "greetings"
 },
 {
 "id": "en-14",
@@ -180,7 +193,8 @@ export const puzzles = [
 "1F3D9"
 ],
 "culture_note_en": "London's red double-decker buses are a famous symbol of the city.",
-"culture_note_th": "รถเมล์สองชั้นสีแดงเป็นสัญลักษณ์ที่มีชื่อเสียงของกรุงลอนดอน"
+"culture_note_th": "รถเมล์สองชั้นสีแดงเป็นสัญลักษณ์ที่มีชื่อเสียงของกรุงลอนดอน",
+"category": "daily life"
 },
 {
 "id": "en-15",
@@ -193,7 +207,8 @@ export const puzzles = [
 "1F9D1-200D-1F33E"
 ],
 "culture_note_en": "Gardening is a popular hobby in the UK, and many houses have a garden at the back.",
-"culture_note_th": "การทำสวนเป็นงานอดิเรกยอดนิยมในสหราชอาณาจักร บ้านหลายหลังมีสวนอยู่ด้านหลัง"
+"culture_note_th": "การทำสวนเป็นงานอดิเรกยอดนิยมในสหราชอาณาจักร บ้านหลายหลังมีสวนอยู่ด้านหลัง",
+"category": "daily life"
 },
 {
 "id": "en-16",
@@ -206,7 +221,8 @@ export const puzzles = [
 "1F39F"
 ],
 "culture_note_en": "Shakespeare's plays are still performed in London, including at the rebuilt Globe Theatre.",
-"culture_note_th": "บทละครของเชกสเปียร์ยังจัดแสดงอยู่ในลอนดอน รวมถึงที่โรงละครโกลบซึ่งสร้างขึ้นใหม่"
+"culture_note_th": "บทละครของเชกสเปียร์ยังจัดแสดงอยู่ในลอนดอน รวมถึงที่โรงละครโกลบซึ่งสร้างขึ้นใหม่",
+"category": "arts"
 },
 {
 "id": "en-17",
@@ -219,7 +235,8 @@ export const puzzles = [
 "1F3AD"
 ],
 "culture_note_en": "London's West End is famous for musicals, and some shows have run for decades.",
-"culture_note_th": "ย่านเวสต์เอนด์ของลอนดอนมีชื่อเสียงด้านละครเพลง บางเรื่องเปิดแสดงต่อเนื่องหลายสิบปี"
+"culture_note_th": "ย่านเวสต์เอนด์ของลอนดอนมีชื่อเสียงด้านละครเพลง บางเรื่องเปิดแสดงต่อเนื่องหลายสิบปี",
+"category": "arts"
 },
 {
 "id": "en-18",
@@ -232,7 +249,8 @@ export const puzzles = [
 "1F35E"
 ],
 "culture_note_en": "A \"full English breakfast\" may include eggs, bacon, sausages, beans, tomatoes and toast.",
-"culture_note_th": "อาหารเช้าแบบ full English อาจมีไข่ เบคอน ไส้กรอก ถั่วอบ มะเขือเทศ และขนมปังปิ้ง"
+"culture_note_th": "อาหารเช้าแบบ full English อาจมีไข่ เบคอน ไส้กรอก ถั่วอบ มะเขือเทศ และขนมปังปิ้ง",
+"category": "food"
 },
 {
 "id": "en-19",
@@ -245,7 +263,8 @@ export const puzzles = [
 "1F9C2"
 ],
 "culture_note_en": "In the UK chips are thick fried potatoes, often eaten with fish; thin crispy ones are called crisps.",
-"culture_note_th": "ในสหราชอาณาจักร chips คือมันฝรั่งทอดชิ้นหนา มักกินกับปลาทอด ส่วนมันฝรั่งแผ่นบางกรอบเรียกว่า crisps"
+"culture_note_th": "ในสหราชอาณาจักร chips คือมันฝรั่งทอดชิ้นหนา มักกินกับปลาทอด ส่วนมันฝรั่งแผ่นบางกรอบเรียกว่า crisps",
+"category": "food"
 },
 {
 "id": "en-20",
@@ -258,7 +277,8 @@ export const puzzles = [
 "1F5E3"
 ],
 "culture_note_en": "Talking about the weather is a common way for British people to start small talk.",
-"culture_note_th": "การคุยเรื่องอากาศเป็นวิธีเริ่มบทสนทนาทั่วไปที่คนอังกฤษใช้กันบ่อย"
+"culture_note_th": "การคุยเรื่องอากาศเป็นวิธีเริ่มบทสนทนาทั่วไปที่คนอังกฤษใช้กันบ่อย",
+"category": "daily life"
 },
 {
 "id": "fr-01",
@@ -271,7 +291,8 @@ export const puzzles = [
 "1F468-200D-1F373"
 ],
 "culture_note_en": "In 2022 UNESCO added the craft and culture of the French baguette to its list of intangible cultural heritage.",
-"culture_note_th": "ปี 2022 ยูเนสโกขึ้นทะเบียนงานฝีมือและวัฒนธรรมขนมปังบาแก็ตของฝรั่งเศสเป็นมรดกวัฒนธรรมที่จับต้องไม่ได้"
+"culture_note_th": "ปี 2022 ยูเนสโกขึ้นทะเบียนงานฝีมือและวัฒนธรรมขนมปังบาแก็ตของฝรั่งเศสเป็นมรดกวัฒนธรรมที่จับต้องไม่ได้",
+"category": "food"
 },
 {
 "id": "fr-02",
@@ -284,7 +305,8 @@ export const puzzles = [
 "1F305"
 ],
 "culture_note_en": "Croissants are a popular breakfast pastry in France, often eaten with coffee.",
-"culture_note_th": "ครัวซองต์เป็นขนมอบยอดนิยมสำหรับมื้อเช้าในฝรั่งเศส มักกินคู่กับกาแฟ"
+"culture_note_th": "ครัวซองต์เป็นขนมอบยอดนิยมสำหรับมื้อเช้าในฝรั่งเศส มักกินคู่กับกาแฟ",
+"category": "food"
 },
 {
 "id": "fr-03",
@@ -297,7 +319,8 @@ export const puzzles = [
 "1F37D"
 ],
 "culture_note_en": "France produces hundreds of kinds of cheese, and cheese is often served after the main course, before dessert.",
-"culture_note_th": "ฝรั่งเศสผลิตชีสหลายร้อยชนิด และมักเสิร์ฟชีสหลังอาหารจานหลัก ก่อนของหวาน"
+"culture_note_th": "ฝรั่งเศสผลิตชีสหลายร้อยชนิด และมักเสิร์ฟชีสหลังอาหารจานหลัก ก่อนของหวาน",
+"category": "food"
 },
 {
 "id": "fr-04",
@@ -310,7 +333,8 @@ export const puzzles = [
 "1F56F"
 ],
 "culture_note_en": "Crêpes come from Brittany, and many French families make them on La Chandeleur, 2 February.",
-"culture_note_th": "เครปมีต้นกำเนิดจากแคว้นเบรอตาญ ครอบครัวชาวฝรั่งเศสจำนวนมากทำเครปกินในวัน La Chandeleur วันที่ 2 กุมภาพันธ์"
+"culture_note_th": "เครปมีต้นกำเนิดจากแคว้นเบรอตาญ ครอบครัวชาวฝรั่งเศสจำนวนมากทำเครปกินในวัน La Chandeleur วันที่ 2 กุมภาพันธ์",
+"category": "festival"
 },
 {
 "id": "fr-05",
@@ -323,7 +347,8 @@ export const puzzles = [
 "1F465"
 ],
 "culture_note_en": "Sitting on a café terrace, drinking coffee and watching people go by is part of French daily life.",
-"culture_note_th": "การนั่งที่ระเบียงคาเฟ่ ดื่มกาแฟ และมองผู้คนเดินผ่าน เป็นส่วนหนึ่งของชีวิตประจำวันของคนฝรั่งเศส"
+"culture_note_th": "การนั่งที่ระเบียงคาเฟ่ ดื่มกาแฟ และมองผู้คนเดินผ่าน เป็นส่วนหนึ่งของชีวิตประจำวันของคนฝรั่งเศส",
+"category": "daily life"
 },
 {
 "id": "fr-06",
@@ -336,7 +361,8 @@ export const puzzles = [
 "1F370"
 ],
 "culture_note_en": "A macaron is a small, colourful almond biscuit with a filling; it is different from a coconut macaroon.",
-"culture_note_th": "มาการงเป็นขนมอัลมอนด์ชิ้นเล็กหลากสีมีไส้ตรงกลาง คนละอย่างกับมาการูนมะพร้าว"
+"culture_note_th": "มาการงเป็นขนมอัลมอนด์ชิ้นเล็กหลากสีมีไส้ตรงกลาง คนละอย่างกับมาการูนมะพร้าว",
+"category": "food"
 },
 {
 "id": "fr-07",
@@ -349,7 +375,8 @@ export const puzzles = [
 "1F3EA"
 ],
 "culture_note_en": "A bistro is a small, relaxed restaurant that serves simple, home-style French food.",
-"culture_note_th": "บิสโทรคือร้านอาหารขนาดเล็กบรรยากาศสบาย ๆ เสิร์ฟอาหารฝรั่งเศสแบบเรียบง่ายเหมือนทำที่บ้าน"
+"culture_note_th": "บิสโทรคือร้านอาหารขนาดเล็กบรรยากาศสบาย ๆ เสิร์ฟอาหารฝรั่งเศสแบบเรียบง่ายเหมือนทำที่บ้าน",
+"category": "daily life"
 },
 {
 "id": "fr-08",
@@ -362,7 +389,8 @@ export const puzzles = [
 "1F9D1-200D-1F3A8"
 ],
 "culture_note_en": "The Louvre in Paris is one of the most visited art museums in the world and is home to the Mona Lisa.",
-"culture_note_th": "พิพิธภัณฑ์ลูฟวร์ในปารีสเป็นพิพิธภัณฑ์ศิลปะที่มีผู้เข้าชมมากที่สุดแห่งหนึ่งของโลก และเป็นที่จัดแสดงภาพโมนาลิซา"
+"culture_note_th": "พิพิธภัณฑ์ลูฟวร์ในปารีสเป็นพิพิธภัณฑ์ศิลปะที่มีผู้เข้าชมมากที่สุดแห่งหนึ่งของโลก และเป็นที่จัดแสดงภาพโมนาลิซา",
+"category": "place"
 },
 {
 "id": "fr-09",
@@ -375,7 +403,8 @@ export const puzzles = [
 "1F4F8"
 ],
 "culture_note_en": "The Eiffel Tower was built for the 1889 World's Fair in Paris.",
-"culture_note_th": "หอไอเฟลสร้างขึ้นสำหรับงานมหกรรมโลกที่ปารีสในปี 1889"
+"culture_note_th": "หอไอเฟลสร้างขึ้นสำหรับงานมหกรรมโลกที่ปารีสในปี 1889",
+"category": "place"
 },
 {
 "id": "fr-10",
@@ -388,7 +417,8 @@ export const puzzles = [
 "1F3B6"
 ],
 "culture_note_en": "Many ballet words, such as \"plié\" and \"pirouette\", are French because ballet developed at the French royal court.",
-"culture_note_th": "คำศัพท์บัลเลต์หลายคำ เช่น plié และ pirouette เป็นภาษาฝรั่งเศส เพราะบัลเลต์พัฒนาขึ้นในราชสำนักฝรั่งเศส"
+"culture_note_th": "คำศัพท์บัลเลต์หลายคำ เช่น plié และ pirouette เป็นภาษาฝรั่งเศส เพราะบัลเลต์พัฒนาขึ้นในราชสำนักฝรั่งเศส",
+"category": "arts"
 },
 {
 "id": "fr-11",
@@ -401,7 +431,8 @@ export const puzzles = [
 "1F45C"
 ],
 "culture_note_en": "Paris Fashion Week is one of the most important fashion events in the world.",
-"culture_note_th": "ปารีสแฟชั่นวีกเป็นหนึ่งในงานแฟชั่นที่สำคัญที่สุดของโลก"
+"culture_note_th": "ปารีสแฟชั่นวีกเป็นหนึ่งในงานแฟชั่นที่สำคัญที่สุดของโลก",
+"category": "arts"
 },
 {
 "id": "fr-12",
@@ -414,7 +445,8 @@ export const puzzles = [
 "1F443"
 ],
 "culture_note_en": "The town of Grasse in southern France is famous as a centre of perfume making.",
-"culture_note_th": "เมืองกราสทางใต้ของฝรั่งเศสมีชื่อเสียงในฐานะศูนย์กลางการผลิตน้ำหอม"
+"culture_note_th": "เมืองกราสทางใต้ของฝรั่งเศสมีชื่อเสียงในฐานะศูนย์กลางการผลิตน้ำหอม",
+"category": "arts"
 },
 {
 "id": "fr-13",
@@ -427,7 +459,8 @@ export const puzzles = [
 "1F305"
 ],
 "culture_note_en": "Impressionism, a style of painting with light colours and visible brushstrokes, began in France in the 1870s with artists such as Monet.",
-"culture_note_th": "อิมเพรสชันนิสม์ ศิลปะภาพวาดที่ใช้สีสว่างและเห็นรอยพู่กันชัด เริ่มขึ้นในฝรั่งเศสช่วงทศวรรษ 1870 โดยศิลปินอย่างโมเนต์"
+"culture_note_th": "อิมเพรสชันนิสม์ ศิลปะภาพวาดที่ใช้สีสว่างและเห็นรอยพู่กันชัด เริ่มขึ้นในฝรั่งเศสช่วงทศวรรษ 1870 โดยศิลปินอย่างโมเนต์",
+"category": "arts"
 },
 {
 "id": "fr-14",
@@ -440,7 +473,8 @@ export const puzzles = [
 "1F642"
 ],
 "culture_note_en": "Friends in France often greet each other with \"la bise\", light kisses on the cheeks; the number of kisses differs by region.",
-"culture_note_th": "เพื่อนชาวฝรั่งเศสมักทักทายกันด้วย la bise คือการแตะแก้มเบา ๆ จำนวนครั้งต่างกันไปตามภูมิภาค"
+"culture_note_th": "เพื่อนชาวฝรั่งเศสมักทักทายกันด้วย la bise คือการแตะแก้มเบา ๆ จำนวนครั้งต่างกันไปตามภูมิภาค",
+"category": "greetings"
 },
 {
 "id": "fr-15",
@@ -453,7 +487,8 @@ export const puzzles = [
 "1F957"
 ],
 "culture_note_en": "Many French people sit down for a proper lunch, and it can last an hour or more.",
-"culture_note_th": "คนฝรั่งเศสจำนวนมากนั่งกินมื้อกลางวันอย่างจริงจัง และอาจใช้เวลาหนึ่งชั่วโมงหรือมากกว่า"
+"culture_note_th": "คนฝรั่งเศสจำนวนมากนั่งกินมื้อกลางวันอย่างจริงจัง และอาจใช้เวลาหนึ่งชั่วโมงหรือมากกว่า",
+"category": "daily life"
 },
 {
 "id": "fr-16",
@@ -466,7 +501,8 @@ export const puzzles = [
 "1F372"
 ],
 "culture_note_en": "The word \"chef\" comes from the French \"chef de cuisine\", meaning \"head of the kitchen\".",
-"culture_note_th": "คำว่า chef มาจากภาษาฝรั่งเศส chef de cuisine แปลว่าหัวหน้าห้องครัว"
+"culture_note_th": "คำว่า chef มาจากภาษาฝรั่งเศส chef de cuisine แปลว่าหัวหน้าห้องครัว",
+"category": "daily life"
 },
 {
 "id": "fr-17",
@@ -479,7 +515,8 @@ export const puzzles = [
 "26F0"
 ],
 "culture_note_en": "The Tour de France, a three-week cycling race, has been held almost every year since 1903.",
-"culture_note_th": "ตูร์เดอฟร็องส์ การแข่งจักรยานทางไกลสามสัปดาห์ จัดขึ้นเกือบทุกปีตั้งแต่ปี 1903"
+"culture_note_th": "ตูร์เดอฟร็องส์ การแข่งจักรยานทางไกลสามสัปดาห์ จัดขึ้นเกือบทุกปีตั้งแต่ปี 1903",
+"category": "sport"
 },
 {
 "id": "fr-18",
@@ -492,7 +529,8 @@ export const puzzles = [
 "1F386"
 ],
 "culture_note_en": "On 14 July, France's national day, a large military parade takes place on the Champs-Élysées in Paris.",
-"culture_note_th": "วันที่ 14 กรกฎาคม วันชาติฝรั่งเศส มีขบวนพาเหรดทหารขนาดใหญ่บนถนนช็องเซลีเซในปารีส"
+"culture_note_th": "วันที่ 14 กรกฎาคม วันชาติฝรั่งเศส มีขบวนพาเหรดทหารขนาดใหญ่บนถนนช็องเซลีเซในปารีส",
+"category": "festival"
 },
 {
 "id": "fr-19",
@@ -505,7 +543,8 @@ export const puzzles = [
 "2600"
 ],
 "culture_note_en": "In summer, purple lavender fields bloom across Provence in southern France.",
-"culture_note_th": "ช่วงฤดูร้อน ทุ่งลาเวนเดอร์สีม่วงจะบานทั่วแคว้นโพรว็องซ์ทางใต้ของฝรั่งเศส"
+"culture_note_th": "ช่วงฤดูร้อน ทุ่งลาเวนเดอร์สีม่วงจะบานทั่วแคว้นโพรว็องซ์ทางใต้ของฝรั่งเศส",
+"category": "place"
 },
 {
 "id": "fr-20",
@@ -518,7 +557,8 @@ export const puzzles = [
 "1F468"
 ],
 "culture_note_en": "The beret is a soft, round, flat hat that has long been linked with French and Basque culture.",
-"culture_note_th": "เบเร่ต์คือหมวกทรงกลมแบนเนื้อนุ่ม ที่ผูกพันกับวัฒนธรรมฝรั่งเศสและบาสก์มายาวนาน"
+"culture_note_th": "เบเร่ต์คือหมวกทรงกลมแบนเนื้อนุ่ม ที่ผูกพันกับวัฒนธรรมฝรั่งเศสและบาสก์มายาวนาน",
+"category": "arts"
 },
 {
 "id": "ru-01",
@@ -531,7 +571,8 @@ export const puzzles = [
 "1F9F8"
 ],
 "culture_note_en": "The matryoshka is a set of wooden dolls that fit inside one another; it first appeared in Russia in the 1890s.",
-"culture_note_th": "มาตรีออชกาคือชุดตุ๊กตาไม้ที่ซ้อนกันได้หลายชั้น ปรากฏครั้งแรกในรัสเซียช่วงทศวรรษ 1890"
+"culture_note_th": "มาตรีออชกาคือชุดตุ๊กตาไม้ที่ซ้อนกันได้หลายชั้น ปรากฏครั้งแรกในรัสเซียช่วงทศวรรษ 1890",
+"category": "arts"
 },
 {
 "id": "ru-02",
@@ -544,7 +585,8 @@ export const puzzles = [
 "1F96C"
 ],
 "culture_note_en": "Pirozhki are small baked or fried pies filled with potato, cabbage or meat, popular across Russia.",
-"culture_note_th": "ปิโรชกีคือพายชิ้นเล็กแบบอบหรือทอด ไส้มันฝรั่ง กะหล่ำปลี หรือเนื้อ เป็นที่นิยมทั่วรัสเซีย"
+"culture_note_th": "ปิโรชกีคือพายชิ้นเล็กแบบอบหรือทอด ไส้มันฝรั่ง กะหล่ำปลี หรือเนื้อ เป็นที่นิยมทั่วรัสเซีย",
+"category": "food"
 },
 {
 "id": "ru-03",
@@ -557,7 +599,8 @@ export const puzzles = [
 "1F33E"
 ],
 "culture_note_en": "Kasha, a porridge often made from buckwheat, is a traditional everyday food in Russia.",
-"culture_note_th": "คาชา ข้าวต้มธัญพืชที่มักทำจากบักวีต เป็นอาหารประจำวันแบบดั้งเดิมของรัสเซีย"
+"culture_note_th": "คาชา ข้าวต้มธัญพืชที่มักทำจากบักวีต เป็นอาหารประจำวันแบบดั้งเดิมของรัสเซีย",
+"category": "food"
 },
 {
 "id": "ru-04",
@@ -570,7 +613,8 @@ export const puzzles = [
 "1F525"
 ],
 "culture_note_en": "A samovar is a large metal container used to heat water for tea and is a symbol of Russian tea culture.",
-"culture_note_th": "ซาโมวาร์คือภาชนะโลหะขนาดใหญ่สำหรับต้มน้ำชง เป็นสัญลักษณ์ของวัฒนธรรมการดื่มชาของรัสเซีย"
+"culture_note_th": "ซาโมวาร์คือภาชนะโลหะขนาดใหญ่สำหรับต้มน้ำชง เป็นสัญลักษณ์ของวัฒนธรรมการดื่มชาของรัสเซีย",
+"category": "daily life"
 },
 {
 "id": "ru-05",
@@ -583,7 +627,8 @@ export const puzzles = [
 "1F921"
 ],
 "culture_note_en": "Circus has a long tradition in Russia, and Russian circus schools are known for training skilled acrobats.",
-"culture_note_th": "ละครสัตว์และกายกรรมมีประเพณียาวนานในรัสเซีย โรงเรียนละครสัตว์ของรัสเซียมีชื่อเสียงด้านการฝึกนักกายกรรม"
+"culture_note_th": "ละครสัตว์และกายกรรมมีประเพณียาวนานในรัสเซีย โรงเรียนละครสัตว์ของรัสเซียมีชื่อเสียงด้านการฝึกนักกายกรรม",
+"category": "arts"
 },
 {
 "id": "ru-06",
@@ -596,7 +641,8 @@ export const puzzles = [
 "1F328"
 ],
 "culture_note_en": "In many parts of Russia, snow covers the ground for several months each year.",
-"culture_note_th": "หลายพื้นที่ของรัสเซียมีหิมะปกคลุมพื้นดินนานหลายเดือนในแต่ละปี"
+"culture_note_th": "หลายพื้นที่ของรัสเซียมีหิมะปกคลุมพื้นดินนานหลายเดือนในแต่ละปี",
+"category": "daily life"
 },
 {
 "id": "ru-07",
@@ -609,7 +655,8 @@ export const puzzles = [
 "1F9E4"
 ],
 "culture_note_en": "Russia is the largest country in the world, and winters in Siberia can be extremely cold.",
-"culture_note_th": "รัสเซียเป็นประเทศที่ใหญ่ที่สุดในโลก และฤดูหนาวในไซบีเรียอาจหนาวจัดมาก"
+"culture_note_th": "รัสเซียเป็นประเทศที่ใหญ่ที่สุดในโลก และฤดูหนาวในไซบีเรียอาจหนาวจัดมาก",
+"category": "daily life"
 },
 {
 "id": "ru-08",
@@ -622,7 +669,8 @@ export const puzzles = [
 "1F9E0"
 ],
 "culture_note_en": "Chess is very popular in Russia, and the country has produced many world chess champions.",
-"culture_note_th": "หมากรุกเป็นที่นิยมมากในรัสเซีย และประเทศนี้มีแชมป์หมากรุกโลกหลายคน"
+"culture_note_th": "หมากรุกเป็นที่นิยมมากในรัสเซีย และประเทศนี้มีแชมป์หมากรุกโลกหลายคน",
+"category": "sport"
 },
 {
 "id": "ru-09",
@@ -635,7 +683,8 @@ export const puzzles = [
 "1F4A1"
 ],
 "culture_note_en": "The Moscow Metro opened in 1935, and many of its stations are decorated like palaces.",
-"culture_note_th": "รถไฟใต้ดินมอสโกเปิดใช้ในปี 1935 หลายสถานีตกแต่งงดงามราวกับพระราชวัง"
+"culture_note_th": "รถไฟใต้ดินมอสโกเปิดใช้ในปี 1935 หลายสถานีตกแต่งงดงามราวกับพระราชวัง",
+"category": "place"
 },
 {
 "id": "ru-10",
@@ -648,7 +697,8 @@ export const puzzles = [
 "1F30D"
 ],
 "culture_note_en": "Yuri Gagarin, a Soviet cosmonaut, became the first human in space in 1961.",
-"culture_note_th": "ยูรี กาการิน นักบินอวกาศโซเวียต เป็นมนุษย์คนแรกที่เดินทางสู่อวกาศเมื่อปี 1961"
+"culture_note_th": "ยูรี กาการิน นักบินอวกาศโซเวียต เป็นมนุษย์คนแรกที่เดินทางสู่อวกาศเมื่อปี 1961",
+"category": "arts"
 },
 {
 "id": "ru-11",
@@ -661,7 +711,8 @@ export const puzzles = [
 "1F56F"
 ],
 "culture_note_en": "Russian writers such as Leo Tolstoy and Fyodor Dostoevsky wrote some of the world's most famous novels.",
-"culture_note_th": "นักเขียนรัสเซียอย่างลีโอ ตอลสตอย และฟิโอดอร์ ดอสโตเยฟสกี เขียนนวนิยายที่มีชื่อเสียงที่สุดของโลกหลายเรื่อง"
+"culture_note_th": "นักเขียนรัสเซียอย่างลีโอ ตอลสตอย และฟิโอดอร์ ดอสโตเยฟสกี เขียนนวนิยายที่มีชื่อเสียงที่สุดของโลกหลายเรื่อง",
+"category": "arts"
 },
 {
 "id": "ru-12",
@@ -674,7 +725,8 @@ export const puzzles = [
 "1F3B6"
 ],
 "culture_note_en": "The balalaika is a Russian string instrument with a triangle-shaped body and usually three strings.",
-"culture_note_th": "บาลาไลกาคือเครื่องดนตรีประเภทสายของรัสเซีย ตัวเครื่องเป็นรูปสามเหลี่ยม ปกติมีสามสาย"
+"culture_note_th": "บาลาไลกาคือเครื่องดนตรีประเภทสายของรัสเซีย ตัวเครื่องเป็นรูปสามเหลี่ยม ปกติมีสามสาย",
+"category": "arts"
 },
 {
 "id": "ru-13",
@@ -687,7 +739,8 @@ export const puzzles = [
 "1F33F"
 ],
 "culture_note_en": "The banya is a traditional Russian steam bathhouse; people sometimes tap their skin with bundles of birch leaves.",
-"culture_note_th": "บันยาคือโรงอบไอน้ำแบบดั้งเดิมของรัสเซีย บางครั้งผู้คนใช้กำใบเบิร์ชตีเบา ๆ ตามผิวกาย"
+"culture_note_th": "บันยาคือโรงอบไอน้ำแบบดั้งเดิมของรัสเซีย บางครั้งผู้คนใช้กำใบเบิร์ชตีเบา ๆ ตามผิวกาย",
+"category": "daily life"
 },
 {
 "id": "ru-14",
@@ -700,7 +753,8 @@ export const puzzles = [
 "1F98C"
 ],
 "culture_note_en": "Russia has a larger area of forest than any other country in the world.",
-"culture_note_th": "รัสเซียมีพื้นที่ป่าไม้มากกว่าประเทศอื่นใดในโลก"
+"culture_note_th": "รัสเซียมีพื้นที่ป่าไม้มากกว่าประเทศอื่นใดในโลก",
+"category": "place"
 },
 {
 "id": "ru-15",
@@ -713,7 +767,8 @@ export const puzzles = [
 "1F917"
 ],
 "culture_note_en": "Guests may be welcomed with a round loaf of bread and salt, a traditional sign of hospitality.",
-"culture_note_th": "แขกอาจได้รับการต้อนรับด้วยขนมปังก้อนกลมกับเกลือ ซึ่งเป็นสัญลักษณ์ดั้งเดิมของการต้อนรับ"
+"culture_note_th": "แขกอาจได้รับการต้อนรับด้วยขนมปังก้อนกลมกับเกลือ ซึ่งเป็นสัญลักษณ์ดั้งเดิมของการต้อนรับ",
+"category": "etiquette"
 },
 {
 "id": "ru-16",
@@ -726,7 +781,8 @@ export const puzzles = [
 "1F522"
 ],
 "culture_note_en": "In Russia people usually give an odd number of flowers; even numbers are for funerals.",
-"culture_note_th": "ในรัสเซีย ผู้คนมักให้ดอกไม้เป็นจำนวนคี่ เพราะจำนวนคู่ใช้ในงานศพ"
+"culture_note_th": "ในรัสเซีย ผู้คนมักให้ดอกไม้เป็นจำนวนคี่ เพราะจำนวนคู่ใช้ในงานศพ",
+"category": "etiquette"
 },
 {
 "id": "ru-17",
@@ -739,7 +795,8 @@ export const puzzles = [
 "1F442"
 ],
 "culture_note_en": "The ushanka is a fur hat with ear flaps that can be tied up, or down to keep the ears warm.",
-"culture_note_th": "อูชานกาคือหมวกขนสัตว์ที่มีแผ่นปิดหู ผูกขึ้นหรือปล่อยลงให้หูอุ่นได้"
+"culture_note_th": "อูชานกาคือหมวกขนสัตว์ที่มีแผ่นปิดหู ผูกขึ้นหรือปล่อยลงให้หูอุ่นได้",
+"category": "daily life"
 },
 {
 "id": "ru-18",
@@ -752,7 +809,8 @@ export const puzzles = [
 "2600"
 ],
 "culture_note_en": "During Maslenitsa, a festival at the end of winter, people eat blini, thin pancakes.",
-"culture_note_th": "ช่วงเทศกาลมาสเลนิตซาซึ่งเป็นการส่งท้ายฤดูหนาว ผู้คนกินบลินี แพนเค้กแผ่นบาง"
+"culture_note_th": "ช่วงเทศกาลมาสเลนิตซาซึ่งเป็นการส่งท้ายฤดูหนาว ผู้คนกินบลินี แพนเค้กแผ่นบาง",
+"category": "festival"
 },
 {
 "id": "ru-19",
@@ -765,7 +823,8 @@ export const puzzles = [
 "1F333"
 ],
 "culture_note_en": "Many Russian families have a dacha, a country house where they spend summer weekends and grow vegetables.",
-"culture_note_th": "ครอบครัวรัสเซียจำนวนมากมีดาชา บ้านในชนบทสำหรับพักช่วงสุดสัปดาห์หน้าร้อนและปลูกผัก"
+"culture_note_th": "ครอบครัวรัสเซียจำนวนมากมีดาชา บ้านในชนบทสำหรับพักช่วงสุดสัปดาห์หน้าร้อนและปลูกผัก",
+"category": "daily life"
 },
 {
 "id": "ru-20",
@@ -778,7 +837,8 @@ export const puzzles = [
 "1F340"
 ],
 "culture_note_en": "Some Russians believe it is bad luck to shake hands across a doorway.",
-"culture_note_th": "คนรัสเซียบางคนเชื่อว่าการจับมือข้ามธรณีประตูจะนำโชคร้าย"
+"culture_note_th": "คนรัสเซียบางคนเชื่อว่าการจับมือข้ามธรณีประตูจะนำโชคร้าย",
+"category": "greetings"
 },
 {
 "id": "ko-01",
@@ -791,7 +851,8 @@ export const puzzles = [
 "1FAD9"
 ],
 "culture_note_en": "Kimchi is spicy fermented vegetables, usually cabbage; in 2013 UNESCO listed kimjang, making kimchi together, as intangible heritage.",
-"culture_note_th": "กิมจิคือผักหมักรสเผ็ด ส่วนใหญ่ทำจากผักกาดขาว ปี 2013 ยูเนสโกขึ้นทะเบียน \"กิมจัง\" การทำกิมจิร่วมกัน เป็นมรดกวัฒนธรรมที่จับต้องไม่ได้"
+"culture_note_th": "กิมจิคือผักหมักรสเผ็ด ส่วนใหญ่ทำจากผักกาดขาว ปี 2013 ยูเนสโกขึ้นทะเบียน \"กิมจัง\" การทำกิมจิร่วมกัน เป็นมรดกวัฒนธรรมที่จับต้องไม่ได้",
+"category": "food"
 },
 {
 "id": "ko-02",
@@ -804,7 +865,8 @@ export const puzzles = [
 "1F962"
 ],
 "culture_note_en": "Bulgogi means \"fire meat\": thin slices of marinated beef grilled over a fire.",
-"culture_note_th": "บุลโกกิ แปลว่า \"เนื้อไฟ\" คือเนื้อหั่นบางหมักซอสแล้วย่างไฟ"
+"culture_note_th": "บุลโกกิ แปลว่า \"เนื้อไฟ\" คือเนื้อหั่นบางหมักซอสแล้วย่างไฟ",
+"category": "food"
 },
 {
 "id": "ko-03",
@@ -817,7 +879,8 @@ export const puzzles = [
 "1F955"
 ],
 "culture_note_en": "Bibimbap means \"mixed rice\": rice topped with vegetables, egg and chilli paste, mixed together before eating.",
-"culture_note_th": "บิบิมบับ แปลว่า \"ข้าวคลุก\" คือข้าวโปะผัก ไข่ และซอสพริก คลุกให้เข้ากันก่อนกิน"
+"culture_note_th": "บิบิมบับ แปลว่า \"ข้าวคลุก\" คือข้าวโปะผัก ไข่ และซอสพริก คลุกให้เข้ากันก่อนกิน",
+"category": "food"
 },
 {
 "id": "ko-04",
@@ -830,7 +893,8 @@ export const puzzles = [
 "1F338"
 ],
 "culture_note_en": "The hanbok is traditional Korean clothing, often worn on holidays such as Seollal and Chuseok.",
-"culture_note_th": "ฮันบกคือชุดประจำชาติเกาหลี มักสวมในวันหยุดเทศกาลอย่างซอลลัลและชูซอก"
+"culture_note_th": "ฮันบกคือชุดประจำชาติเกาหลี มักสวมในวันหยุดเทศกาลอย่างซอลลัลและชูซอก",
+"category": "arts"
 },
 {
 "id": "ko-05",
@@ -843,7 +907,8 @@ export const puzzles = [
 "1F3C5"
 ],
 "culture_note_en": "Taekwondo is a Korean martial art known for its kicks; it became an official Olympic sport in 2000.",
-"culture_note_th": "เทควันโดเป็นศิลปะการต่อสู้ของเกาหลีที่โดดเด่นด้านการเตะ กลายเป็นกีฬาโอลิมปิกอย่างเป็นทางการในปี 2000"
+"culture_note_th": "เทควันโดเป็นศิลปะการต่อสู้ของเกาหลีที่โดดเด่นด้านการเตะ กลายเป็นกีฬาโอลิมปิกอย่างเป็นทางการในปี 2000",
+"category": "sport"
 },
 {
 "id": "ko-06",
@@ -856,7 +921,8 @@ export const puzzles = [
 "2728"
 ],
 "culture_note_en": "Many Koreans use thin, flat metal chopsticks, unlike the wooden ones common in some other countries.",
-"culture_note_th": "คนเกาหลีจำนวนมากใช้ตะเกียบโลหะแบนบาง ต่างจากตะเกียบไม้ที่ใช้กันในบางประเทศ"
+"culture_note_th": "คนเกาหลีจำนวนมากใช้ตะเกียบโลหะแบนบาง ต่างจากตะเกียบไม้ที่ใช้กันในบางประเทศ",
+"category": "etiquette"
 },
 {
 "id": "ko-07",
@@ -869,7 +935,8 @@ export const puzzles = [
 "1F474"
 ],
 "culture_note_en": "Bowing is a common greeting in Korea, and a deeper bow shows more respect.",
-"culture_note_th": "การโค้งคำนับเป็นการทักทายทั่วไปในเกาหลี ยิ่งโค้งลึกยิ่งแสดงความเคารพมาก"
+"culture_note_th": "การโค้งคำนับเป็นการทักทายทั่วไปในเกาหลี ยิ่งโค้งลึกยิ่งแสดงความเคารพมาก",
+"category": "greetings"
 },
 {
 "id": "ko-08",
@@ -882,7 +949,8 @@ export const puzzles = [
 "1F496"
 ],
 "culture_note_en": "Korean TV dramas (K-dramas) are popular around the world and are part of the \"Korean Wave\".",
-"culture_note_th": "ละครโทรทัศน์เกาหลี (K-drama) ได้รับความนิยมทั่วโลก และเป็นส่วนหนึ่งของกระแสเกาหลี (Korean Wave)"
+"culture_note_th": "ละครโทรทัศน์เกาหลี (K-drama) ได้รับความนิยมทั่วโลก และเป็นส่วนหนึ่งของกระแสเกาหลี (Korean Wave)",
+"category": "arts"
 },
 {
 "id": "ko-09",
@@ -895,7 +963,8 @@ export const puzzles = [
 "1F57A"
 ],
 "culture_note_en": "In K-pop, an \"idol\" is a singer or group member who often trains for years with an entertainment company.",
-"culture_note_th": "ในวงการเคป๊อป ไอดอลคือนักร้องหรือสมาชิกวงที่มักฝึกกับค่ายบันเทิงนานหลายปี"
+"culture_note_th": "ในวงการเคป๊อป ไอดอลคือนักร้องหรือสมาชิกวงที่มักฝึกกับค่ายบันเทิงนานหลายปี",
+"category": "arts"
 },
 {
 "id": "ko-10",
@@ -908,7 +977,8 @@ export const puzzles = [
 "1F468-200D-1F469-200D-1F467"
 ],
 "culture_note_en": "Chuseok is the Korean harvest festival; families gather, visit ancestral graves and eat songpyeon rice cakes.",
-"culture_note_th": "ชูซอกคือเทศกาลเก็บเกี่ยวของเกาหลี ครอบครัวมารวมตัว ไหว้หลุมศพบรรพบุรุษ และกินขนมซงพยอน"
+"culture_note_th": "ชูซอกคือเทศกาลเก็บเกี่ยวของเกาหลี ครอบครัวมารวมตัว ไหว้หลุมศพบรรพบุรุษ และกินขนมซงพยอน",
+"category": "festival"
 },
 {
 "id": "ko-11",
@@ -921,7 +991,8 @@ export const puzzles = [
 "1F382"
 ],
 "culture_note_en": "On Seollal, the Lunar New Year, Koreans eat tteokguk, a rice cake soup; tradition says you become a year older after eating it.",
-"culture_note_th": "ในวันซอลลัล (ตรุษเกาหลี) คนเกาหลีกินต็อกกุก ซุปแป้งข้าว ตามธรรมเนียมเชื่อว่ากินแล้วจะอายุเพิ่มขึ้นหนึ่งปี"
+"culture_note_th": "ในวันซอลลัล (ตรุษเกาหลี) คนเกาหลีกินต็อกกุก ซุปแป้งข้าว ตามธรรมเนียมเชื่อว่ากินแล้วจะอายุเพิ่มขึ้นหนึ่งปี",
+"category": "festival"
 },
 {
 "id": "ko-12",
@@ -934,7 +1005,8 @@ export const puzzles = [
 "1F338"
 ],
 "culture_note_en": "Gyeongbokgung in Seoul is the largest of the palaces built during the Joseon dynasty.",
-"culture_note_th": "พระราชวังเคียงบกในกรุงโซลเป็นพระราชวังที่ใหญ่ที่สุดที่สร้างในสมัยราชวงศ์โชซอน"
+"culture_note_th": "พระราชวังเคียงบกในกรุงโซลเป็นพระราชวังที่ใหญ่ที่สุดที่สร้างในสมัยราชวงศ์โชซอน",
+"category": "place"
 },
 {
 "id": "ko-13",
@@ -947,7 +1019,8 @@ export const puzzles = [
 "1F451"
 ],
 "culture_note_en": "Hangul, the Korean alphabet, was created in the 15th century under King Sejong the Great.",
-"culture_note_th": "ฮันกึล อักษรเกาหลี ถูกสร้างขึ้นในศตวรรษที่ 15 ในรัชสมัยพระเจ้าเซจงมหาราช"
+"culture_note_th": "ฮันกึล อักษรเกาหลี ถูกสร้างขึ้นในศตวรรษที่ 15 ในรัชสมัยพระเจ้าเซจงมหาราช",
+"category": "arts"
 },
 {
 "id": "ko-14",
@@ -960,7 +1033,8 @@ export const puzzles = [
 "1F381"
 ],
 "culture_note_en": "In Korea, people give and receive things with two hands to show respect to older people.",
-"culture_note_th": "ในเกาหลี ผู้คนยื่นและรับสิ่งของด้วยสองมือเพื่อแสดงความเคารพต่อผู้ใหญ่"
+"culture_note_th": "ในเกาหลี ผู้คนยื่นและรับสิ่งของด้วยสองมือเพื่อแสดงความเคารพต่อผู้ใหญ่",
+"category": "etiquette"
 },
 {
 "id": "ko-15",
@@ -973,7 +1047,8 @@ export const puzzles = [
 "2728"
 ],
 "culture_note_en": "Korean skincare routines, with many careful steps, have become popular worldwide.",
-"culture_note_th": "การดูแลผิวแบบเกาหลีที่มีหลายขั้นตอนอย่างพิถีพิถัน ได้รับความนิยมไปทั่วโลก"
+"culture_note_th": "การดูแลผิวแบบเกาหลีที่มีหลายขั้นตอนอย่างพิถีพิถัน ได้รับความนิยมไปทั่วโลก",
+"category": "daily life"
 },
 {
 "id": "ko-16",
@@ -986,7 +1061,8 @@ export const puzzles = [
 "1F96C"
 ],
 "culture_note_en": "At Korean barbecue restaurants, people grill meat at the table and often wrap it in lettuce leaves.",
-"culture_note_th": "ที่ร้านบาร์บีคิวเกาหลี ผู้คนย่างเนื้อที่โต๊ะ แล้วมักห่อด้วยใบผักกาด"
+"culture_note_th": "ที่ร้านบาร์บีคิวเกาหลี ผู้คนย่างเนื้อที่โต๊ะ แล้วมักห่อด้วยใบผักกาด",
+"category": "food"
 },
 {
 "id": "ko-17",
@@ -999,7 +1075,8 @@ export const puzzles = [
 "1F341"
 ],
 "culture_note_en": "About 70% of South Korea is covered by mountains, and hiking is a popular weekend hobby.",
-"culture_note_th": "พื้นที่ราว 70% ของเกาหลีใต้เป็นภูเขา การเดินป่าขึ้นเขาจึงเป็นงานอดิเรกยอดนิยมช่วงสุดสัปดาห์"
+"culture_note_th": "พื้นที่ราว 70% ของเกาหลีใต้เป็นภูเขา การเดินป่าขึ้นเขาจึงเป็นงานอดิเรกยอดนิยมช่วงสุดสัปดาห์",
+"category": "place"
 },
 {
 "id": "ko-18",
@@ -1012,7 +1089,8 @@ export const puzzles = [
 "1F6AB"
 ],
 "culture_note_en": "Koreans take off their shoes before entering a home, partly because people traditionally sit and sleep on heated floors.",
-"culture_note_th": "คนเกาหลีถอดรองเท้าก่อนเข้าบ้าน ส่วนหนึ่งเพราะตามธรรมเนียมผู้คนนั่งและนอนบนพื้นที่มีระบบทำความร้อน"
+"culture_note_th": "คนเกาหลีถอดรองเท้าก่อนเข้าบ้าน ส่วนหนึ่งเพราะตามธรรมเนียมผู้คนนั่งและนอนบนพื้นที่มีระบบทำความร้อน",
+"category": "etiquette"
 },
 {
 "id": "ko-19",
@@ -1025,7 +1103,8 @@ export const puzzles = [
 "1F372"
 ],
 "culture_note_en": "Koreans usually eat rice and soup with a spoon rather than with chopsticks.",
-"culture_note_th": "คนเกาหลีมักกินข้าวและซุปด้วยช้อน ไม่ใช้ตะเกียบ"
+"culture_note_th": "คนเกาหลีมักกินข้าวและซุปด้วยช้อน ไม่ใช้ตะเกียบ",
+"category": "etiquette"
 },
 {
 "id": "ko-20",
@@ -1038,7 +1117,8 @@ export const puzzles = [
 "1F941"
 ],
 "culture_note_en": "Talchum is a traditional Korean mask dance drama that mixes dance, music and humour.",
-"culture_note_th": "ทัลชุมคือการแสดงระบำหน้ากากแบบดั้งเดิมของเกาหลี ผสมการเต้น ดนตรี และอารมณ์ขัน"
+"culture_note_th": "ทัลชุมคือการแสดงระบำหน้ากากแบบดั้งเดิมของเกาหลี ผสมการเต้น ดนตรี และอารมณ์ขัน",
+"category": "arts"
 },
 {
 "id": "zh-01",
@@ -1051,7 +1131,8 @@ export const puzzles = [
 "1F468-200D-1F469-200D-1F466"
 ],
 "culture_note_en": "Many families in northern China make dumplings (jiaozi) together on the eve of the Lunar New Year.",
-"culture_note_th": "หลายครอบครัวทางภาคเหนือของจีนห่อเกี๊ยว (เจี่ยวจือ) ด้วยกันในคืนก่อนวันตรุษจีน"
+"culture_note_th": "หลายครอบครัวทางภาคเหนือของจีนห่อเกี๊ยว (เจี่ยวจือ) ด้วยกันในคืนก่อนวันตรุษจีน",
+"category": "festival"
 },
 {
 "id": "zh-02",
@@ -1064,7 +1145,8 @@ export const puzzles = [
 "23F3"
 ],
 "culture_note_en": "Long noodles are eaten on birthdays in China as a symbol of a long life.",
-"culture_note_th": "ชาวจีนกินบะหมี่เส้นยาวในวันเกิดเป็นสัญลักษณ์ของการมีอายุยืนยาว"
+"culture_note_th": "ชาวจีนกินบะหมี่เส้นยาวในวันเกิดเป็นสัญลักษณ์ของการมีอายุยืนยาว",
+"category": "food"
 },
 {
 "id": "zh-03",
@@ -1077,7 +1159,8 @@ export const puzzles = [
 "2728"
 ],
 "culture_note_en": "The Lantern Festival, on the 15th day of the Lunar New Year, ends the New Year celebrations.",
-"culture_note_th": "เทศกาลโคมไฟตรงกับวันที่ 15 ของปีใหม่ตามจันทรคติ เป็นวันปิดท้ายการเฉลิมฉลองตรุษจีน"
+"culture_note_th": "เทศกาลโคมไฟตรงกับวันที่ 15 ของปีใหม่ตามจันทรคติ เป็นวันปิดท้ายการเฉลิมฉลองตรุษจีน",
+"category": "festival"
 },
 {
 "id": "zh-04",
@@ -1090,7 +1173,8 @@ export const puzzles = [
 "1F3C1"
 ],
 "culture_note_en": "The Dragon Boat Festival features races in long boats decorated with dragon heads.",
-"culture_note_th": "เทศกาลไหว้บ๊ะจ่างมีการแข่งเรือยาวที่ตกแต่งหัวเรือเป็นรูปมังกร"
+"culture_note_th": "เทศกาลไหว้บ๊ะจ่างมีการแข่งเรือยาวที่ตกแต่งหัวเรือเป็นรูปมังกร",
+"category": "festival"
 },
 {
 "id": "zh-05",
@@ -1103,7 +1187,8 @@ export const puzzles = [
 "1FAD6"
 ],
 "culture_note_en": "Tea drinking began in China, and pouring tea for guests is a sign of respect.",
-"culture_note_th": "การดื่มชาเริ่มต้นในจีน และการรินชาให้แขกถือเป็นการแสดงความเคารพ"
+"culture_note_th": "การดื่มชาเริ่มต้นในจีน และการรินชาให้แขกถือเป็นการแสดงความเคารพ",
+"category": "etiquette"
 },
 {
 "id": "zh-06",
@@ -1116,7 +1201,8 @@ export const puzzles = [
 "26F0"
 ],
 "culture_note_en": "Giant pandas live in the mountains of central China, mainly in Sichuan, and eat mostly bamboo.",
-"culture_note_th": "แพนด้ายักษ์อาศัยในเทือกเขาทางตอนกลางของจีน ส่วนใหญ่อยู่ในมณฑลเสฉวน และกินไผ่เป็นหลัก"
+"culture_note_th": "แพนด้ายักษ์อาศัยในเทือกเขาทางตอนกลางของจีน ส่วนใหญ่อยู่ในมณฑลเสฉวน และกินไผ่เป็นหลัก",
+"category": "place"
 },
 {
 "id": "zh-07",
@@ -1129,7 +1215,8 @@ export const puzzles = [
 "1F4DC"
 ],
 "culture_note_en": "Chinese calligraphy is the art of writing characters beautifully with a brush and ink.",
-"culture_note_th": "การเขียนพู่กันจีนคือศิลปะการเขียนตัวอักษรอย่างงดงามด้วยพู่กันและหมึก"
+"culture_note_th": "การเขียนพู่กันจีนคือศิลปะการเขียนตัวอักษรอย่างงดงามด้วยพู่กันและหมึก",
+"category": "arts"
 },
 {
 "id": "zh-08",
@@ -1142,7 +1229,8 @@ export const puzzles = [
 "1F4B0"
 ],
 "culture_note_en": "At Lunar New Year, adults give children red envelopes (hongbao) with money for good luck.",
-"culture_note_th": "ช่วงตรุษจีน ผู้ใหญ่ให้อั่งเปา ซองแดงใส่เงิน แก่เด็ก ๆ เพื่อความโชคดี"
+"culture_note_th": "ช่วงตรุษจีน ผู้ใหญ่ให้อั่งเปา ซองแดงใส่เงิน แก่เด็ก ๆ เพื่อความโชคดี",
+"category": "festival"
 },
 {
 "id": "zh-09",
@@ -1155,7 +1243,8 @@ export const puzzles = [
 "1F405"
 ],
 "culture_note_en": "The Chinese zodiac has twelve animals, and each year is linked to one of them.",
-"culture_note_th": "นักษัตรจีนมีสัตว์สิบสองชนิด แต่ละปีผูกกับสัตว์หนึ่งชนิด"
+"culture_note_th": "นักษัตรจีนมีสัตว์สิบสองชนิด แต่ละปีผูกกับสัตว์หนึ่งชนิด",
+"category": "festival"
 },
 {
 "id": "zh-10",
@@ -1168,7 +1257,8 @@ export const puzzles = [
 "1F42A"
 ],
 "culture_note_en": "Silk was first made in ancient China, and the Silk Road trade routes were named after it.",
-"culture_note_th": "ผ้าไหมผลิตขึ้นครั้งแรกในจีนโบราณ และเส้นทางสายไหมก็ได้ชื่อมาจากสินค้านี้"
+"culture_note_th": "ผ้าไหมผลิตขึ้นครั้งแรกในจีนโบราณ และเส้นทางสายไหมก็ได้ชื่อมาจากสินค้านี้",
+"category": "arts"
 },
 {
 "id": "zh-11",
@@ -1181,7 +1271,8 @@ export const puzzles = [
 "1F6B6"
 ],
 "culture_note_en": "The Great Wall of China was built and rebuilt over many centuries to protect northern borders.",
-"culture_note_th": "กำแพงเมืองจีนถูกสร้างและบูรณะต่อเนื่องหลายศตวรรษเพื่อป้องกันชายแดนทางเหนือ"
+"culture_note_th": "กำแพงเมืองจีนถูกสร้างและบูรณะต่อเนื่องหลายศตวรรษเพื่อป้องกันชายแดนทางเหนือ",
+"category": "place"
 },
 {
 "id": "zh-12",
@@ -1194,7 +1285,8 @@ export const puzzles = [
 "1F962"
 ],
 "culture_note_en": "A wok is a round-bottomed pan used for stir-frying, steaming and deep-frying.",
-"culture_note_th": "กระทะจีนก้นกลมใช้ได้ทั้งผัด นึ่ง และทอด"
+"culture_note_th": "กระทะจีนก้นกลมใช้ได้ทั้งผัด นึ่ง และทอด",
+"category": "food"
 },
 {
 "id": "zh-13",
@@ -1207,7 +1299,8 @@ export const puzzles = [
 "1F466"
 ],
 "culture_note_en": "Kites have a long history in China, and the city of Weifang hosts a famous international kite festival.",
-"culture_note_th": "ว่าวมีประวัติยาวนานในจีน และเมืองเหวยฟางจัดเทศกาลว่าวนานาชาติที่มีชื่อเสียง"
+"culture_note_th": "ว่าวมีประวัติยาวนานในจีน และเมืองเหวยฟางจัดเทศกาลว่าวนานาชาติที่มีชื่อเสียง",
+"category": "daily life"
 },
 {
 "id": "zh-14",
@@ -1220,7 +1313,8 @@ export const puzzles = [
 "1F468-200D-1F469-200D-1F467"
 ],
 "culture_note_en": "Mooncakes are eaten during the Mid-Autumn Festival, when families gather to look at the full moon.",
-"culture_note_th": "ขนมไหว้พระจันทร์กินกันในเทศกาลไหว้พระจันทร์ ซึ่งครอบครัวมารวมตัวกันชมจันทร์เต็มดวง"
+"culture_note_th": "ขนมไหว้พระจันทร์กินกันในเทศกาลไหว้พระจันทร์ ซึ่งครอบครัวมารวมตัวกันชมจันทร์เต็มดวง",
+"category": "festival"
 },
 {
 "id": "zh-15",
@@ -1233,7 +1327,8 @@ export const puzzles = [
 "1F4AA"
 ],
 "culture_note_en": "In Chinese art and poetry, bamboo is a symbol of strength because it bends without breaking.",
-"culture_note_th": "ในศิลปะและบทกวีจีน ไผ่เป็นสัญลักษณ์ของความแข็งแกร่ง เพราะโค้งงอได้โดยไม่หัก"
+"culture_note_th": "ในศิลปะและบทกวีจีน ไผ่เป็นสัญลักษณ์ของความแข็งแกร่ง เพราะโค้งงอได้โดยไม่หัก",
+"category": "arts"
 },
 {
 "id": "zh-16",
@@ -1246,7 +1341,8 @@ export const puzzles = [
 "1F535"
 ],
 "culture_note_en": "Chinese porcelain was so famous that in English the word \"china\" came to mean porcelain.",
-"culture_note_th": "เครื่องลายครามจีนมีชื่อเสียงมากจนคำว่า china ในภาษาอังกฤษใช้หมายถึงเครื่องกระเบื้องเคลือบ"
+"culture_note_th": "เครื่องลายครามจีนมีชื่อเสียงมากจนคำว่า china ในภาษาอังกฤษใช้หมายถึงเครื่องกระเบื้องเคลือบ",
+"category": "arts"
 },
 {
 "id": "zh-17",
@@ -1259,7 +1355,8 @@ export const puzzles = [
 "1F941"
 ],
 "culture_note_en": "Peking opera combines singing, acting and acrobatics, and performers often wear painted faces.",
-"culture_note_th": "งิ้วปักกิ่งผสมการร้อง การแสดง และกายกรรม นักแสดงมักแต่งหน้าด้วยสีสันจัดจ้าน"
+"culture_note_th": "งิ้วปักกิ่งผสมการร้อง การแสดง และกายกรรม นักแสดงมักแต่งหน้าด้วยสีสันจัดจ้าน",
+"category": "arts"
 },
 {
 "id": "zh-18",
@@ -1272,7 +1369,8 @@ export const puzzles = [
 "1F432"
 ],
 "culture_note_en": "Fireworks are set off at Lunar New Year; in old stories the noise scares away a monster called Nian.",
-"culture_note_th": "ช่วงตรุษจีนมีการจุดพลุและประทัด ตามตำนานเชื่อว่าเสียงดังช่วยไล่สัตว์ร้ายชื่อเหนียน"
+"culture_note_th": "ช่วงตรุษจีนมีการจุดพลุและประทัด ตามตำนานเชื่อว่าเสียงดังช่วยไล่สัตว์ร้ายชื่อเหนียน",
+"category": "festival"
 },
 {
 "id": "zh-19",
@@ -1285,7 +1383,8 @@ export const puzzles = [
 "1F4B0"
 ],
 "culture_note_en": "The abacus, a frame with sliding beads, has been used for counting in China for centuries.",
-"culture_note_th": "ลูกคิด กรอบไม้ที่มีลูกปัดเลื่อนได้ ถูกใช้นับเลขในจีนมาหลายศตวรรษ"
+"culture_note_th": "ลูกคิด กรอบไม้ที่มีลูกปัดเลื่อนได้ ถูกใช้นับเลขในจีนมาหลายศตวรรษ",
+"category": "daily life"
 },
 {
 "id": "zh-20",
@@ -1298,6 +1397,7 @@ export const puzzles = [
 "1F4FF"
 ],
 "culture_note_en": "Jade has been highly valued in China for thousands of years as a symbol of purity and good fortune.",
-"culture_note_th": "หยกเป็นที่นิยมยกย่องในจีนมาหลายพันปี ในฐานะสัญลักษณ์ของความบริสุทธิ์และโชคลาภ"
+"culture_note_th": "หยกเป็นที่นิยมยกย่องในจีนมาหลายพันปี ในฐานะสัญลักษณ์ของความบริสุทธิ์และโชคลาภ",
+"category": "arts"
 }
 ];

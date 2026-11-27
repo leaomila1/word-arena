@@ -3,6 +3,9 @@ import { renderTimer } from './core/timer.js';
 import { $, show, ERRORS, CLOSED } from './core/dom.js';
 import { mountSky, islandSvg, confetti } from './core/scene.js';
 import { sfx, unlockAudio, muteButton } from './core/sfx.js';
+import { countdown, tension, calm, banner, drumroll } from './core/fx.js';
+import { hintChip } from './games/shared.js';
+const ROUND_MS = 180_000;
 
 const code = new URLSearchParams(location.search).get('code');
 if (!/^\d{6}$/.test(code || '')) location.replace('index.html');
@@ -41,19 +44,25 @@ function init() {
     });
     net.on('round', async m => {
       const my = ++seq;
-      sfx.start();
+      calm();
       $('#roundTitle').textContent = NAMES[m.gameId];
-      stopTimer?.(); stopTimer = renderTimer($('#timer'), m.endsAt, { onTick: s => s <= 5 && s > 0 && sfx.tick() });
-      game?.unmount();
+      game?.unmount(); game = null;
       const mod = await import(`./games/${m.gameId}/player.js`);
       if (my !== seq) return; // reveal arrived while loading
-      game = mod.mount($('#game-root'), net, m);
       show('round');
+      if (m.endsAt - Date.now() > ROUND_MS - 5000) await countdown();
+      if (my !== seq) return;
+      game = mod.mount($('#game-root'), net, m);
+      stopTimer?.(); stopTimer = renderTimer($('#timer'), m.endsAt, { onTick: s => { tension(s); s <= 5 && s > 0 && sfx.tick(); } });
     });
     net.on('reply', m => game?.update(m));
+    net.on('hint', m => { game?.hint?.(m.hints); const last = m.hints.at(-1); if (last) banner(['💡 ', hintChip(last)], { sound: 'sparkle', ms: 2800 }); });
     net.on('reveal', async m => {
       const my = ++seq;
-      stopTimer?.(); game?.unmount(); game = null;
+      stopTimer?.();
+      await drumroll(1.4);
+      if (my !== seq) return;
+      game?.unmount(); game = null;
       $('#gained').textContent = m.you ? `+${m.you.gained} points` : 'Round over';
       $('#total').textContent = m.you?.score ?? '–';
       const mod = await import(`./games/${m.gameId}/host.js`);
@@ -61,8 +70,8 @@ function init() {
       $('#reveal-root').replaceChildren(mod.renderReveal(m.reveal, { compact: true }));
       show('reveal'); sfx.fanfare(); if (m.you?.gained >= 400) confetti(50);
     });
-    net.on('lobby', () => { $('#waitText').textContent = 'Watch the big screen. The next game starts soon.'; show('wait'); });
-    net.on('closed', m => { forget(); $('#closedText').textContent = CLOSED[m.reason] || CLOSED.CLOSED; show('closed'); });
+    net.on('lobby', () => { calm(); $('#waitText').textContent = 'Watch the big screen. The next game starts soon.'; show('wait'); });
+    net.on('closed', m => { calm(); forget(); $('#closedText').textContent = CLOSED[m.reason] || CLOSED.CLOSED; show('closed'); });
   }
 
   $('#nameForm').onsubmit = e => { e.preventDefault(); unlockAudio(); sfx.pop(); $('#msg').textContent = ''; start($('#name').value.trim()); };

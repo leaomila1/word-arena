@@ -4,6 +4,9 @@ import { renderTimer } from './core/timer.js';
 import { h, $, show, CONTEXTS, ERRORS, CLOSED } from './core/dom.js';
 import { mountSky, confetti, FLAGS } from './core/scene.js';
 import { sfx, unlockAudio, startMusic, stopMusic, muteButton } from './core/sfx.js';
+import { countdown, tension, calm, banner, drumroll } from './core/fx.js';
+import { hintChip } from './games/shared.js';
+const ROUND_MS = 180_000;
 
 const code = new URLSearchParams(location.search).get('code');
 const hostToken = sessionStorage.getItem(`host:${code}`);
@@ -36,7 +39,7 @@ function init() {
   const names = new Map();
   const ctx = { nameOf: id => names.get(id) ?? '?' };
   const flash = text => { const m = $('#msg'); m.textContent = text; m.hidden = false; setTimeout(() => (m.hidden = true), 3500); };
-  const goLobby = () => { show('lobby'); startMusic(); };
+  const goLobby = () => { calm(); show('lobby'); startMusic(); };
 
   net.on('_status', s => ($('#status').hidden = s === 'online'));
   net.on('error', m => flash(ERRORS[m.code] || m.code));
@@ -52,26 +55,34 @@ function init() {
   });
   net.on('round', async m => {
     const my = ++seq;
-    stopMusic(); sfx.start();
+    stopMusic(); calm();
     $('#roundTitle').textContent = NAMES[m.gameId];
-    stopTimer?.(); stopTimer = renderTimer($('#timer'), m.endsAt, { onTick: s => s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)) });
-    game?.unmount();
+    game?.unmount(); game = null;
     const mod = await import(`./games/${m.gameId}/host.js`);
     if (my !== seq) return; // a newer message arrived while loading
     game = mod.mount($('#game-root'), net, m, ctx);
     show('round');
+    if (m.endsAt - Date.now() > ROUND_MS - 5000) await countdown(); // fresh round only, not after a reload
+    if (my !== seq) return;
+    stopTimer?.(); stopTimer = renderTimer($('#timer'), m.endsAt, { onTick: s => { tension(s, { heartbeat: true }); s > 0 && (s <= 10 ? sfx.tick() : sfx.clock(s)); } });
   });
   net.on('board', m => game?.update(m));
+  net.on('hint', m => {
+    game?.hint?.(m.hints);
+    const last = m.hints.at(-1);
+    if (last) banner(['💡 New hint! ', hintChip(last)], { sound: 'sparkle' });
+  });
   net.on('reveal', async m => {
     const my = ++seq;
-    stopTimer?.(); game?.unmount(); game = null;
-    const mod = await import(`./games/${m.gameId}/host.js`);
+    stopTimer?.();
+    const [mod] = await Promise.all([import(`./games/${m.gameId}/host.js`), drumroll(1.8)]);
     if (my !== seq) return;
+    game?.unmount(); game = null;
     $('#reveal-root').replaceChildren(mod.renderReveal(m.reveal));
     $('#top').replaceChildren(...m.top.map(p => h('li', {}, `${p.name} — ${p.score}`)));
     show('reveal'); sfx.fanfare(); confetti();
   });
-  net.on('closed', m => { stopMusic(); $('#closedText').textContent = CLOSED[m.reason] || 'Room closed'; show('closed'); });
+  net.on('closed', m => { stopMusic(); calm(); $('#closedText').textContent = CLOSED[m.reason] || 'Room closed'; show('closed'); });
 
   const start = () => { unlockAudio(); net.send({ type: 'start', gameId: picked('game'), context: picked('context') }); };
   $('#start').onclick = start;

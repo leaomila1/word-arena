@@ -3,6 +3,7 @@ import { fold } from '../core/text.js';
 import { scoreCorrect } from './contexto.js';
 
 export const RATE_MS = 2000;
+export const HINT_MS = 30_000;
 
 const norm = s => fold(s).replace(/[^a-z]+/g, ' ').trim();
 
@@ -21,8 +22,20 @@ export function createDavini({ puzzles }) {
       return from[Math.floor(rng() * from.length)];
     },
 
-    startRound(content, _rng, nowMs) {
-      return { puzzleId: content.id, startedAt: nowMs, winnerId: null, solvedAt: null, players: {} };
+    startRound(content, rng, nowMs) {
+      // random order in which letters get revealed (one every 30 s, at most half the word)
+      const order = [...content.answer].map((_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+      return { puzzleId: content.id, startedAt: nowMs, winnerId: null, solvedAt: null, players: {}, revealOrder: order };
+    },
+
+    hintLevel(r, nowMs) {
+      const n = byId.get(r.puzzleId).answer.length;
+      return Math.min(Math.floor(n / 2), Math.floor((nowMs - r.startedAt) / HINT_MS));
+    },
+    hints(r, level) {
+      const w = byId.get(r.puzzleId).answer.toUpperCase(), show = r.revealOrder.slice(0, level);
+      return [{ kind: 'letters', icon: '🔤', text: [...w].map((c, i) => (show.includes(i) ? c : '_')).join(' ') }];
     },
 
     onGuess(r, playerId, text, nowMs) {
